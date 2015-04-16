@@ -5,10 +5,13 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 public class Window extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7631123706268222587L;
 	private JPanel contentPane;
 
 	/**
@@ -32,13 +35,13 @@ public class Window extends JFrame {
 	 */
 	public Window() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		contentPane.add(new TestPanel());
 		setResizable(false);
 		pack();
+		setLocationRelativeTo(null);
 	}
 
 }

@@ -10,9 +10,14 @@ public class Player extends Entity implements Fighter {
 	private Animation left = new Animation("src/images/walking_left.png",60,135,8);
 	private Animation right = new Animation("src/images/walking_right.png",60,135,8);
 	private Animation praise = new Animation("src/images/praise_the_sun.png",80,135,8);
+	private Animation right_attack = new Animation("src/images/right_attack.png",142,136,9);
+	private Animation left_attack = new Animation("src/images/left_attack.png",142,136,9);
 	
 	private Animation currentAnimation = right;
 	
+	public Player(){
+		right_attack.delay = 120;
+	}
 	@Override
 	public void move() {
 		if(TestPanel.input.isPressed(KeyEvent.VK_LEFT)) {
@@ -35,7 +40,7 @@ public class Player extends Entity implements Fighter {
 
 	@Override
 	public void attack() {
-		currentAnimation = praise;
+		currentAnimation = right_attack;
 	}
 
 	@Override

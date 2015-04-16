@@ -1,9 +1,6 @@
 package finalProject;
 
-import java.awt.Graphics;
 import java.util.ArrayList;
-
-import static finalProject.Tile.TILE_SIZE;
 
 public class Animation {
 	Sprite[] sprites;

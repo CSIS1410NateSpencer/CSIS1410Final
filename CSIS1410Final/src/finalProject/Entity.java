@@ -8,7 +8,7 @@ public abstract class Entity {
 	public abstract void update();
 	public void draw(Graphics g) {
 		if(sprite != null) {
-			sprite.draw(g, (int)position.x, (int)position.y);
+			sprite.draw(g, (int)(position.x - TestPanel.cam.x), (int)(position.y - TestPanel.cam.y));
 			
 			//g.drawRect((int)position.x, (int)position.y, sprite.width, sprite.height);
 		}

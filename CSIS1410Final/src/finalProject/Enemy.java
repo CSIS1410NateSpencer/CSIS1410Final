@@ -1,13 +1,17 @@
 package finalProject;
 
 public class Enemy extends Entity implements Fighter {
-	Animation animation = new Animation("src/images/walking_right.png",60,135,8);
-	double speed = 1;
+	Animation animation = new Animation("src/images/walk_zombie_left.png",66,94,8);
+	double speed = .1;
 	private int health;
-	
+	public Enemy(){
+		position.x = 300;
+		position.y = 300;
+		animation.delay = 200;
+	}
 	@Override
 	public void move() {
-		position.x+= speed;
+		position.x-= speed;
 		
 	}
 
