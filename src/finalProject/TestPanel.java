@@ -25,7 +25,7 @@ public class TestPanel extends JPanel implements Runnable{
 		
 		
 		
-		tm = new TileMap("final1410file.txt", 32);
+		tm = new TileMap("1txt.txt", 32);
 		tm.loadTiles("1tiles.png");
 		//dirt = new Tile(Sprite.load("src/images/1tiles.png",0,0,32,32));
 		entities.add(new Player());
