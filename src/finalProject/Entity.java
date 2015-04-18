@@ -11,9 +11,8 @@ public abstract class Entity {
 	public void draw(Graphics g) {
 		
 		if(sprite != null) {
-			sprite.draw(g, (int)position.x, (int)position.y);
-			
-			//g.drawRect((int)position.x, (int)position.y, sprite.width, sprite.height);
+			sprite.draw(g, (int)(position.x - Game.cameraPosition.x), (int)(position.y - Game.cameraPosition.y));
+			//g.drawRect((int)(position.x - Game.cameraPosition.x), (int)(position.y - Game.cameraPosition.y),sprite.width, sprite.height);
 		}
 	}
 	public boolean checkCollision(Entity other) {

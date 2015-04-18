@@ -4,9 +4,6 @@ import java.awt.event.KeyEvent;
 
 public class Player extends Entity implements Fighter {
 	double speed = 1;
-	private double x;
-	private double y;
-	Point point = new Point();
 	private int health;
 	private Animation up = new Animation("src/images/walking_up.png",60,135,8);
 	private Animation down = new Animation("src/images/walking_down.png",60,135,8);
@@ -18,14 +15,13 @@ public class Player extends Entity implements Fighter {
 	private Animation right_attack = new Animation("src/images/right_attack.png",142,136,9);
 	private Animation left_attack = new Animation("src/images/left_attack.png",142,136,9);
 	
-	private Animation currentAnimation = right;
+	private Animation currentAnimation = down_idle;
 	
-	public void setx(int i) { x = i; }
-	public void sety(int i) { y = i; }
-	
+	public Player(){
+		sprite = currentAnimation.currentSprite();
+	}
 	@Override
 	public void move() {
-		currentAnimation = down_idle;
 		if(TestPanel.input.isPressed(KeyEvent.VK_LEFT)) {
 			currentAnimation = left;
 			position.x-= speed;
@@ -72,8 +68,6 @@ public class Player extends Entity implements Fighter {
 
 	@Override
 	public void die() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

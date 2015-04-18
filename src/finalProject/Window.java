@@ -36,7 +36,7 @@ public class Window extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		contentPane.add(new TestPanel());
+		contentPane.add(new TestPanel(this));
 		setResizable(false);
 		pack();
 	}

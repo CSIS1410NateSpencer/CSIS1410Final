@@ -144,8 +144,8 @@ public class TileMap {
 				
 				g.drawImage(
 					tiles[r][c].getImage(),
-					x + col * tileSize,
-					y + row * tileSize,
+					x + col * tileSize - (int)Game.cameraPosition.x,
+					y + row * tileSize - (int)Game.cameraPosition.y,
 					null
 				);
 				
