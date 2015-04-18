@@ -16,7 +16,7 @@ public class Game extends Canvas implements Runnable{
 	JFrame frame;
 	BufferStrategy bs;
 	Graphics g;
-	Input input = new Input();
+	public static Input input = new Input();
 	
 	private TileMap tileMap;
 	ArrayList<Entity> entities = new ArrayList<>();
@@ -66,22 +66,32 @@ public class Game extends Canvas implements Runnable{
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
-
+	
+	double fps = 0;
 	@Override
 	public void run() {
 		final long NANOS_PER_SECOND = 1000000000;
 		double desiredFPS = 60;
 		double delay = NANOS_PER_SECOND / desiredFPS;
-		long currentTime = System.nanoTime();
-		long oldTime = currentTime;
+		long startTime = System.nanoTime();
+		long currentTime = startTime;
+		long oldTime = startTime;
 		double elapsed;
+		int frames = 0;
+		long totalElapsed = 0;
+		
 		while(true) {
 			currentTime = System.nanoTime();
 			elapsed = currentTime - oldTime;
+			totalElapsed = currentTime - startTime;
 			if(elapsed >= delay){
 				update();
 				render();
 				oldTime = currentTime;
+				frames++;
+				if(totalElapsed > 0)
+				fps = frames / (totalElapsed/(double)NANOS_PER_SECOND);
+				
 			}
 		}
 	}

@@ -18,10 +18,10 @@ public class Sprite {
 	}
 
 	void draw(Graphics g, int x, int y, int width, int height) {
-		g.drawImage(image, x * TestPanel.SCALE, y * TestPanel.SCALE, width * TestPanel.SCALE, height * TestPanel.SCALE, null);
+		g.drawImage(image, x , y , width , height , null);
 	}
 	void draw(Graphics g, int x, int y) {
-		g.drawImage(image, x * TestPanel.SCALE, y * TestPanel.SCALE, width * TestPanel.SCALE, height * TestPanel.SCALE, null);
+		g.drawImage(image, x , y , width , height , null);
 	}
 	
 	public static Sprite load(String path, int x, int y, int width, int height) {

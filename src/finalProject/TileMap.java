@@ -34,8 +34,8 @@ public class TileMap {
 			mapHeight = Integer.parseInt(br.readLine());
 			map = new int[mapHeight][mapWidth];
 			
-			minx = TestPanel.WIDTH - mapWidth * tileSize;
-			miny = TestPanel.HEIGHT - mapHeight * tileSize;
+			minx = Game.WIDTH - mapWidth * tileSize;
+			miny = Game.HEIGHT - mapHeight * tileSize;
 			
 			String delimiters = ",";
 			for(int row = 0; row < mapHeight; row++) {

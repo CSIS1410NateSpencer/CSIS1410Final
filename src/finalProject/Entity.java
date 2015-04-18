@@ -12,7 +12,7 @@ public abstract class Entity {
 		
 		if(sprite != null) {
 			sprite.draw(g, (int)(position.x - Game.cameraPosition.x), (int)(position.y - Game.cameraPosition.y));
-			//g.drawRect((int)(position.x - Game.cameraPosition.x), (int)(position.y - Game.cameraPosition.y),sprite.width, sprite.height);
+			g.drawRect((int)(position.x - Game.cameraPosition.x), (int)(position.y - Game.cameraPosition.y),sprite.width, sprite.height);
 		}
 	}
 	public boolean checkCollision(Entity other) {

@@ -2,9 +2,9 @@ package finalProject;
 
 import java.awt.event.KeyEvent;
 
-public class Player extends Entity implements Fighter {
+public class Player extends Fighter {
 	double speed = 1;
-	private int health;
+	
 	private Animation up = new Animation("src/images/walking_up.png",60,135,8);
 	private Animation down = new Animation("src/images/walking_down.png",60,135,8);
 	private Animation left = new Animation("src/images/walking_left.png",60,135,8);
@@ -22,65 +22,50 @@ public class Player extends Entity implements Fighter {
 	}
 	@Override
 	public void move() {
-		if(TestPanel.input.isPressed(KeyEvent.VK_LEFT)) {
+		if(Game.input.isPressed(KeyEvent.VK_LEFT)) {
 			currentAnimation = left;
 			position.x-= speed;
 		}
-		if(TestPanel.input.isPressed(KeyEvent.VK_RIGHT)) {
+		if(Game.input.isPressed(KeyEvent.VK_RIGHT)) {
 			currentAnimation = right;
 			position.x+= speed;
 		}
-		if(TestPanel.input.isPressed(KeyEvent.VK_UP)) {
+		if(Game.input.isPressed(KeyEvent.VK_UP)) {
 			currentAnimation = up;
 			position.y-=speed;
 		}
-		if(TestPanel.input.isPressed(KeyEvent.VK_DOWN)) {
+		if(Game.input.isPressed(KeyEvent.VK_DOWN)) {
 			currentAnimation = down;
 			position.y+=speed;
 			
 		}
 		
-//		if(TestPanel.input.isPressed(KeyEvent.)){
+//		if(Game.input.isPressed(KeyEvent.)){
 //			
 //		}
 	}
 
 	@Override
 	public void attack() {
-		//currentAnimation = praise;
-		//currentAnimation = right_attack;
-		if(TestPanel.input.isPressed(KeyEvent.VK_LEFT)){
-			currentAnimation = left_attack;
-		}
-		if(TestPanel.input.isPressed(KeyEvent.VK_RIGHT)){
+			//currentAnimation = left_attack;
 			currentAnimation = right_attack;
-		}
-		
-	}
-
-	@Override
-	public void takeDamage(int amount) {
-		health-=amount;
-		if(amount <=0)
-			die();
-		
-	}
-
-	@Override
-	public void die() {
 	}
 
 	@Override
 	public void update() {
 		sprite = currentAnimation.currentSprite();
 		move();
-		if(TestPanel.input.isPressed(KeyEvent.VK_SPACE))
+		if(Game.input.isPressed(KeyEvent.VK_SPACE))
 			attack();
 		
 	}
 
 	@Override
 	public void onCollide(Entity other) {
+		
+	}
+	@Override
+	void die() {
 		
 	}
 
