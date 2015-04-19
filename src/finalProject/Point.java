@@ -1,8 +1,8 @@
 package finalProject;
 
 public class Point {
-	double x;
-	double y;
+	public double x;
+	public double y;
 	
 	public Point(){
 		this(0.0,0.0);
@@ -39,5 +39,11 @@ public class Point {
 	
 	public static Point zero(){
 		return new Point(0.0,0.0);
+	}
+	public Point multiply(double speed) {
+		return new Point(x * speed, y * speed);
+	}
+	public Point add(Point v) {
+		return new Point(x + v.x, y + v.y);
 	}
 }

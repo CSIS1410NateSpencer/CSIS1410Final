@@ -1,4 +1,6 @@
-package finalProject;
+package entities;
+
+import graphics.Animation;
 
 import java.util.Random;
 
@@ -45,7 +47,7 @@ public class Enemy extends Fighter {
 
 	@Override
 	public void onCollide(Entity other) {
-		if(other instanceof AttackEntity)
+		if(other instanceof AttackEntity && ((AttackEntity)other).sender != this)
 			takeDamage(1);
 	}
 

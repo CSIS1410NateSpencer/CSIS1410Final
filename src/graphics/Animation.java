@@ -1,4 +1,4 @@
-package finalProject;
+package graphics;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class Animation {
 		return sprites.toArray(new Sprite[]{});
 	}
 
-	Sprite currentSprite() {
+	public Sprite currentSprite() {
 		double elapsedMilliseconds = (System.currentTimeMillis() - startTime);
 		currentIndex = (int)((elapsedMilliseconds / delay) % sprites.length);
 		if (currentIndex == sprites.length - 1 && !looping)
@@ -32,10 +32,22 @@ public class Animation {
 		return sprites[currentIndex];
 	}
 	
-	boolean finished = false;
+	private boolean finished = false;
 	boolean looping = false;
-	void play(){
+	public void play(){
 		finished = false;
 		startTime = System.currentTimeMillis();
+	}
+
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+
+	public void setDelay(int i) {
+		delay = i;
 	}
 }

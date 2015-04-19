@@ -13,6 +13,10 @@ import java.util.Collections;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import entities.Enemy;
+import entities.Entity;
+import entities.Player;
+
 public class Game extends Canvas implements Runnable{
 	JFrame frame;
 	BufferStrategy bs;
@@ -21,7 +25,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private TileMap tileMap;
 	static ArrayList<Entity> entities = new ArrayList<>();
-	static ArrayList<Entity> newEntities = new ArrayList<>();
+	public static ArrayList<Entity> newEntities = new ArrayList<>();
 	Player player = new Player();
 	public static Point cameraPosition = new Point(0,0);
 	
@@ -49,8 +53,8 @@ public class Game extends Canvas implements Runnable{
 	}
 	private void setupEntities() {
 		new Enemy();
-		player.position.x = getWidth() / 2 - player.sprite.width / 2;
-		player.position.y = getHeight() / 2 - player.sprite.height / 2;
+		player.position.x = getWidth() / 2 - player.getSprite().getWidth() / 2;
+		player.position.y = getHeight() / 2 - player.getSprite().getHeight() / 2;
 	}
 	private void ensureSize(Dimension size) {
 		setMinimumSize(size);
@@ -148,8 +152,8 @@ public class Game extends Canvas implements Runnable{
 		return a + (b-a) * t;
 	}
 	private void positionCamera() {
-		cameraPosition.x = interpolate(cameraPosition.x, player.position.x - getWidth() / 2 + player.sprite.width / 2,.05);
-		cameraPosition.y = interpolate(cameraPosition.y, player.position.y - getHeight() / 2 + player.sprite.height / 2,.05);
+		cameraPosition.x = interpolate(cameraPosition.x, player.position.x - getWidth() / 2 + player.getSprite().getWidth() / 2,.05);
+		cameraPosition.y = interpolate(cameraPosition.y, player.position.y - getHeight() / 2 + player.getSprite().getHeight() / 2,.05);
 	}
 
 }

@@ -1,7 +1,10 @@
 package finalProject;
+import graphics.Tile;
+
 import java.io.*;
 import java.awt.*;
 import java.awt.image.*;
+
 import javax.imageio.ImageIO;
 
 public class TileMap {
@@ -15,7 +18,7 @@ public class TileMap {
 	private int mapHeight;
 	
 	private BufferedImage tileset;
-	private Tiles[][] tiles;
+	private Tile[][] tile;
 	
 	private int minx;
 	private int miny;
@@ -57,7 +60,7 @@ public class TileMap {
 			
 			tileset = ImageIO.read(new File(s));
 			int numTilesAcross = (tileset.getWidth()) / (tileSize);
-			tiles = new Tiles[2][numTilesAcross];
+			tile = new Tile[2][numTilesAcross];
 			
 			BufferedImage subimage;
 			for(int col = 1; col < numTilesAcross; col++) {
@@ -67,14 +70,14 @@ public class TileMap {
 					tileSize,
 					tileSize
 				);
-				tiles[0][col] = new Tiles(subimage);
+				tile[0][col] = new Tile(subimage);
 				subimage = tileset.getSubimage(
 					col * tileSize - 32,
 					tileSize,
 					tileSize,
 					tileSize
 				);
-				tiles[1][col] = new Tiles(subimage);
+				tile[1][col] = new Tile(subimage);
 				
 			}
 		}
@@ -139,11 +142,11 @@ public class TileMap {
 				
 				int rc = map[row][col];
 				
-				int r = rc / tiles[0].length;
-				int c = rc % tiles[0].length;
+				int r = rc / tile[0].length;
+				int c = rc % tile[0].length;
 				
 				g.drawImage(
-					tiles[r][c].getImage(),
+					tile[r][c].getImage(),
 					x + col * tileSize - (int)Game.cameraPosition.x,
 					y + row * tileSize - (int)Game.cameraPosition.y,
 					null

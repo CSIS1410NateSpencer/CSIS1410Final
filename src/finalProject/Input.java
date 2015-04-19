@@ -12,45 +12,63 @@ import java.util.Set;
 public class Input extends KeyAdapter{
 	public static List<Integer> pressedKeys = new ArrayList<>();
 	
-	Direction  getDirection(){
+	public Direction getDirection() {
 		Map<Integer, Direction> directions = new HashMap<>();
-		if(isPressed(KeyEvent.VK_UP)) {
-			directions.put(pressedKeys.indexOf(KeyEvent.VK_UP), Direction.Up);
-		}
-		if(isPressed(KeyEvent.VK_DOWN)) {
-			directions.put(pressedKeys.indexOf(KeyEvent.VK_DOWN), Direction.Down);
-		}
-		
-		if(isPressed(KeyEvent.VK_LEFT)) {
-			directions.put(pressedKeys.indexOf(KeyEvent.VK_LEFT), Direction.Left);
-		}
-		if(isPressed(KeyEvent.VK_RIGHT)) {
-			directions.put(pressedKeys.indexOf(KeyEvent.VK_RIGHT), Direction.Right);
-		}
 
-		int latest = -1;
-		for (Integer integer : directions.keySet()) {
-			if(integer > latest)
-				latest = integer;
-		}
-		return directions.get(latest);
+		int upIndex = pressedKeys.indexOf(KeyEvent.VK_UP);
+		directions.put(upIndex, Direction.Up);
+		int downIndex = pressedKeys.indexOf(KeyEvent.VK_DOWN);
+		directions.put(downIndex, Direction.Down);
+		int leftIndex = pressedKeys.indexOf(KeyEvent.VK_LEFT);
+		directions.put(leftIndex, Direction.Left);
+		int rightIndex = pressedKeys.indexOf(KeyEvent.VK_RIGHT);
+		directions.put(rightIndex, Direction.Right);
+
+		int latestVertical = Math.max(upIndex, downIndex);
+		if (latestVertical == -1)
+			latestVertical = 100;
+		int latestHorizontal = Math.max(leftIndex, rightIndex);
+		if (latestHorizontal == -1)
+			latestHorizontal = 100;
+
+		int earliest = Math.min(latestHorizontal, latestVertical);
+
+		if (earliest == 100)
+			return null;
+		return directions.get(earliest);
+
 	}
 	
-	Point getPoint(){
-		double x = 0, y = 0;
-		if(isPressed(KeyEvent.VK_UP)) {
-			y = -1;
-		}
-		if(isPressed(KeyEvent.VK_DOWN)) {
-			y = 1;
-		}
-		if(isPressed(KeyEvent.VK_LEFT)) {
-			x = -1;
-		}
-		if(isPressed(KeyEvent.VK_RIGHT)) {
-			x = 1;
-		}
-		return new Point(x,y);
+	public Point getPoint() {
+		Map<Integer, Double> directions = new HashMap<>();
+		
+		int upIndex = pressedKeys.indexOf(KeyEvent.VK_UP);
+		directions.put(upIndex, -1.0);
+		
+		int downIndex = pressedKeys.indexOf(KeyEvent.VK_DOWN);
+		directions.put(downIndex, 1.0);
+		
+		int leftIndex = pressedKeys.indexOf(KeyEvent.VK_LEFT);
+		directions.put(leftIndex, -1.0);
+		
+		int rightIndex = pressedKeys.indexOf(KeyEvent.VK_RIGHT);
+		directions.put(rightIndex, 1.0);
+		
+		double x, y;
+		
+		int latestHorizontal = Math.max(leftIndex, rightIndex);
+		if (latestHorizontal == -1)
+			x = 0;
+		else
+			x = directions.get(latestHorizontal);
+		
+		int latestVertical = Math.max(upIndex, downIndex);
+		if (latestVertical == -1)
+			y = 0;
+		else
+			y = directions.get(latestVertical);
+		
+		return new Point(x, y);
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {

@@ -1,4 +1,4 @@
-package finalProject;
+package graphics;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -9,7 +9,8 @@ import javax.imageio.ImageIO;
 
 public class Sprite {
 	final BufferedImage image;
-	final int width, height;
+	private final int width;
+	private final int height;
 	
 	private Sprite(BufferedImage image) {
 		this.image = image;
@@ -18,10 +19,13 @@ public class Sprite {
 	}
 
 	void draw(Graphics g, int x, int y, int width, int height) {
-		g.drawImage(image, x , y , width , height , null);
+		if(image != null)
+			g.drawImage(image, x , y , width , height , null);
+		else 
+			g.drawRect(x, y, width, height);
 	}
-	void draw(Graphics g, int x, int y) {
-		g.drawImage(image, x , y , width , height , null);
+	public void draw(Graphics g, int x, int y) {
+		draw(g, x, y, getWidth(), getHeight());
 	}
 	
 	public static Sprite load(String path, int x, int y, int width, int height) {
@@ -36,5 +40,13 @@ public class Sprite {
 			e.printStackTrace();
 		}
 		return new Sprite(null);
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 }

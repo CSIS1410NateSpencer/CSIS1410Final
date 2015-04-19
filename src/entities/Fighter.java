@@ -1,4 +1,5 @@
-package finalProject;
+package entities;
+
 
 public abstract class Fighter extends Entity {
 	protected int health;

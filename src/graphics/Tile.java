@@ -1,13 +1,13 @@
-package finalProject;
+package graphics;
 
 
 import java.awt.image.*;
 
-public class Tiles {
+public class Tile {
 	
 	private BufferedImage image;
 	
-	public Tiles(BufferedImage image) {
+	public Tile(BufferedImage image) {
 		this.image = image;
 	}
 	
