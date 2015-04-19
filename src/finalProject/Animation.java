@@ -3,8 +3,6 @@ package finalProject;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import static finalProject.Tile.TILE_SIZE;
-
 public class Animation {
 	Sprite[] sprites;
 	int currentIndex = 0;
@@ -26,9 +24,18 @@ public class Animation {
 		return sprites.toArray(new Sprite[]{});
 	}
 
-	Sprite currentSprite(){
+	Sprite currentSprite() {
 		double elapsedMilliseconds = (System.currentTimeMillis() - startTime);
 		currentIndex = (int)((elapsedMilliseconds / delay) % sprites.length);
+		if (currentIndex == sprites.length - 1 && !looping)
+			finished = true;
 		return sprites[currentIndex];
+	}
+	
+	boolean finished = false;
+	boolean looping = false;
+	void play(){
+		finished = false;
+		startTime = System.currentTimeMillis();
 	}
 }

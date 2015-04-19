@@ -8,6 +8,7 @@ import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,7 +20,8 @@ public class Game extends Canvas implements Runnable{
 	public static Input input = new Input();
 	
 	private TileMap tileMap;
-	ArrayList<Entity> entities = new ArrayList<>();
+	static ArrayList<Entity> entities = new ArrayList<>();
+	static ArrayList<Entity> newEntities = new ArrayList<>();
 	Player player = new Player();
 	public static Point cameraPosition = new Point(0,0);
 	
@@ -46,10 +48,9 @@ public class Game extends Canvas implements Runnable{
 		tileMap.loadTiles("1tiles.png");
 	}
 	private void setupEntities() {
-		entities.add(new Enemy());
+		new Enemy();
 		player.position.x = getWidth() / 2 - player.sprite.width / 2;
 		player.position.y = getHeight() / 2 - player.sprite.height / 2;
-		entities.add(player);
 	}
 	private void ensureSize(Dimension size) {
 		setMinimumSize(size);
@@ -97,10 +98,22 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	private void update() {
-		for (Entity entity : entities) {
-			entity.update();
-		}
+		//sort entities by y position
+		Collections.sort(entities);
 		
+		//update entity state
+		for (Entity entity : entities) {
+			entity.update();	
+		}
+		//check for intersection between entities
+		for (int x = 0; x < entities.size(); x++) {
+			for (int y = 0; y < entities.size(); y++) {
+				if(x!=y)
+					Entity.checkCollision(entities.get(x),entities.get(y));
+			}
+		}
+		entities.addAll(newEntities);
+		newEntities.clear();
 		positionCamera();
 	}
 	private void render() {
@@ -111,14 +124,22 @@ public class Game extends Canvas implements Runnable{
 		}
 		g = bs.getDrawGraphics();
 		
+		//clear the screen
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
+		//draw the level
 		tileMap.draw(g);
+		
+		//draw objects in the level;
 		for (Entity entity : entities) {
 			entity.draw(g);
 		}
+		
+		//display the final product on the screen
 		bs.show();
+		
+		//clean up after yourself
 		g.dispose();
 	}
 	
