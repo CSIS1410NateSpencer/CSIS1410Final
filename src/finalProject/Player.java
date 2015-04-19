@@ -10,6 +10,7 @@ public class Player extends Fighter {
 	Map<Direction, Animation> walks = getAnimations("walk",60,135,8);
 	Map<Direction, Animation> idles = getAnimations("idle",60,135,8);
 	Map<Direction, Animation> attacks = getAnimations("attack",142,136,9);
+	Map<Direction, Animation> injuries = getAnimations("attack",142,136,9);
 	
 	private Animation praise = new Animation("src/images/praise_the_sun.png",80,135,10);
 	
@@ -66,7 +67,7 @@ public class Player extends Fighter {
 
 	@Override
 	public void onCollide(Entity other) {
-		if(other instanceof Enemy && currentAnimationSet != attacks)
+		if(other instanceof Enemy && currentAnimationSet != injuries)
 			takeDamage(1);
 	}
 	
