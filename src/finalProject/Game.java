@@ -24,8 +24,9 @@ public class Game extends Canvas implements Runnable{
 	public static Input input = new Input();
 	
 	private TileMap tileMap;
-	static ArrayList<Entity> entities = new ArrayList<>();
-	public static ArrayList<Entity> newEntities = new ArrayList<>();
+	private static ArrayList<Entity> entities = new ArrayList<>();
+	private static ArrayList<Entity> newEntities = new ArrayList<>();
+	private static ArrayList<Entity> graveyard = new ArrayList<>();
 	Player player = new Player();
 	public static Point cameraPosition = new Point(0,0);
 	
@@ -102,8 +103,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	private void update() {
-		//sort entities by y position
-		Collections.sort(entities);
+		
 		
 		//update entity state
 		for (Entity entity : entities) {
@@ -111,14 +111,19 @@ public class Game extends Canvas implements Runnable{
 		}
 		//check for intersection between entities
 		for (int x = 0; x < entities.size(); x++) {
-			for (int y = 0; y < entities.size(); y++) {
+			for (int y = x; y < entities.size(); y++) {
 				if(x!=y)
 					Entity.checkCollision(entities.get(x),entities.get(y));
 			}
 		}
 		entities.addAll(newEntities);
 		newEntities.clear();
+		entities.removeAll(graveyard);
+		graveyard.clear();
 		positionCamera();
+		
+		//sort entities by y position
+		Collections.sort(entities);
 	}
 	private void render() {
 		bs = getBufferStrategy();
@@ -129,7 +134,8 @@ public class Game extends Canvas implements Runnable{
 		g = bs.getDrawGraphics();
 		
 		//clear the screen
-		g.setColor(Color.BLACK);
+		g.setColor(Color.ORANGE.darker().darker().darker());
+		//g.setColor(new Color(0.0f,0.0f,0.0f,0.1f));
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
 		//draw the level
@@ -155,5 +161,13 @@ public class Game extends Canvas implements Runnable{
 		cameraPosition.x = interpolate(cameraPosition.x, player.position.x - getWidth() / 2 + player.getSprite().getWidth() / 2,.05);
 		cameraPosition.y = interpolate(cameraPosition.y, player.position.y - getHeight() / 2 + player.getSprite().getHeight() / 2,.05);
 	}
-
+	
+	public static void remove(Entity e) {
+		graveyard.add(e);
+	}
+	public static void add(Entity e) {
+		newEntities.add(e);
+	}
+	
+	
 }

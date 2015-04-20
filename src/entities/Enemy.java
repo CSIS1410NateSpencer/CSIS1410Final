@@ -9,13 +9,18 @@ public class Enemy extends Fighter {
 	
 	Animation walk_right = new Animation("src/images/walk_zombie_right.png",66,94,11);
 	Animation walk_left = new Animation("src/images/walk_zombie_left.png",66,94,11);
+	
 	Animation currentAnimation = walk_left;
 	double speed = .05;
 	Random rand = new Random();
-	
+	Attack attack;
 	public Enemy(){
-		health = 500;
 		setPosition(450,200);
+		sprite = walk_left.currentSprite();
+		collider.width = sprite.getWidth();
+		collider.height = sprite.getHeight();
+		 attack = new Attack(this,position, sprite.getWidth(), sprite.getHeight());
+		 attack.temporary = false;
 	}
 	public void setPosition(){
 		position.x = 450;
@@ -23,14 +28,12 @@ public class Enemy extends Fighter {
 	}
 	public void setPosition(double x,double y){
 		position.x = x;
-		position.y=y;
+		position.y = y;
 	}
 	
 	@Override
 	public void move() {
-		// make enemies slower
 		position.x-= speed;
-		
 	}
 
 	@Override
@@ -46,15 +49,9 @@ public class Enemy extends Fighter {
 	}
 
 	@Override
-	public void onCollide(Entity other) {
-		if(other instanceof AttackEntity && ((AttackEntity)other).sender != this)
-			takeDamage(1);
-	}
-
-	@Override
 	void die() {
 		setPosition();
-		health = 120;
+		health = starterHealth;
 	}
 
 }

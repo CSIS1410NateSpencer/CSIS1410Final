@@ -11,6 +11,8 @@ public class Sprite {
 	final BufferedImage image;
 	private final int width;
 	private final int height;
+	private int xOffset;
+	private int yOffset;
 	
 	private Sprite(BufferedImage image) {
 		this.image = image;
@@ -20,10 +22,9 @@ public class Sprite {
 
 	void draw(Graphics g, int x, int y, int width, int height) {
 		if(image != null)
-			g.drawImage(image, x , y , width , height , null);
-		else 
-			g.drawRect(x, y, width, height);
+			g.drawImage(image, x + xOffset, y + yOffset, width , height , null);
 	}
+	
 	public void draw(Graphics g, int x, int y) {
 		draw(g, x, y, getWidth(), getHeight());
 	}
@@ -48,5 +49,13 @@ public class Sprite {
 
 	public int getHeight() {
 		return height;
+	}
+	
+	public void setxOffset(int xOffset) {
+		this.xOffset = xOffset;
+	}
+
+	public void setyOffset(int yOffset) {
+		this.yOffset = yOffset;
 	}
 }

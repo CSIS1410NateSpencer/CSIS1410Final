@@ -12,6 +12,7 @@ public class Animation {
 	public Animation(String path, int width, int height, int numberOfSprites) {
 		sprites = load(path,width,height,numberOfSprites);
 		startTime = System.currentTimeMillis();
+		
 	}
 	
 	private static Sprite[] load(String path, int width, int height, int numberOfSprites){
@@ -49,5 +50,11 @@ public class Animation {
 
 	public void setDelay(int i) {
 		delay = i;
+	}
+
+	public void setXOffset(int xOffset) {
+		for (Sprite sprite : sprites) {
+			sprite.setxOffset(xOffset);
+		}
 	}
 }
