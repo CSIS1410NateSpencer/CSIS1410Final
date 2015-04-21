@@ -2,28 +2,36 @@ package entities;
 
 
 public abstract class Fighter extends Entity {
-	protected int health;
+	private int health;
 	protected int starterHealth;
 	
-	public Fighter() {
-		health = 10;
-		starterHealth = health;
+	protected void initializeHealth(int health) {
+		setHealth(health);
+		starterHealth = getHealth();
 	}
 	
 	abstract void move();
 	abstract void attack();
 	
 	void takeDamage(int amount) {
-		health-=amount;
-		System.out.println(this.getClass().getSimpleName() + " Health: " + health);
-		if(health <=0)
+		setHealth(getHealth() - amount);
+		//System.out.println(this.getClass().getSimpleName() + " Health: " + health);
+		if(getHealth() <=0)
 			die();
 	}
 	
 	@Override
 	public final void onCollide(Entity other) {
-		if(other instanceof Attack && ((Attack)other).sender != this)
+		if(other instanceof Attack && ((Attack)other).sender.getClass() != this.getClass())
 			takeDamage(1);
 	}
 	abstract void die();
+
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
 }

@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -24,9 +25,7 @@ public class Game extends Canvas implements Runnable{
 	public static Input input = new Input();
 	
 	private TileMap tileMap;
-	private static ArrayList<Entity> entities = new ArrayList<>();
-	private static ArrayList<Entity> newEntities = new ArrayList<>();
-	private static ArrayList<Entity> graveyard = new ArrayList<>();
+	private static CopyOnWriteArrayList<Entity> entities = new CopyOnWriteArrayList<>();
 	Player player = new Player();
 	public static Point cameraPosition = new Point(0,0);
 	
@@ -41,6 +40,7 @@ public class Game extends Canvas implements Runnable{
 		setupInput();
 		setupMap();
 		setupEntities();
+		frame.setVisible(true);
 	}
 	
 	private void setupInput() {
@@ -53,7 +53,10 @@ public class Game extends Canvas implements Runnable{
 		tileMap.loadTiles("1tiles.png");
 	}
 	private void setupEntities() {
-		new Enemy();
+		for (int i = 0; i < 2; i++) {
+			new Enemy();
+		}
+		
 		player.position.x = getWidth() / 2 - player.getSprite().getWidth() / 2;
 		player.position.y = getHeight() / 2 - player.getSprite().getHeight() / 2;
 	}
@@ -70,7 +73,6 @@ public class Game extends Canvas implements Runnable{
 		frame.setResizable(false);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
 	}
 	
 	double fps = 0;
@@ -116,10 +118,6 @@ public class Game extends Canvas implements Runnable{
 					Entity.checkCollision(entities.get(x),entities.get(y));
 			}
 		}
-		entities.addAll(newEntities);
-		newEntities.clear();
-		entities.removeAll(graveyard);
-		graveyard.clear();
 		positionCamera();
 		
 		//sort entities by y position
@@ -134,7 +132,7 @@ public class Game extends Canvas implements Runnable{
 		g = bs.getDrawGraphics();
 		
 		//clear the screen
-		g.setColor(Color.ORANGE.darker().darker().darker());
+		g.setColor(new Color(0.35f, 0.20f, 0.0f, 1.0f));
 		//g.setColor(new Color(0.0f,0.0f,0.0f,0.1f));
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
@@ -145,7 +143,8 @@ public class Game extends Canvas implements Runnable{
 		for (Entity entity : entities) {
 			entity.draw(g);
 		}
-		
+		g.setColor(Color.BLACK);
+		g.drawString("Health: " + player.getHealth(), 0, 17);
 		//display the final product on the screen
 		bs.show();
 		
@@ -163,10 +162,10 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public static void remove(Entity e) {
-		graveyard.add(e);
+		entities.remove(e);
 	}
 	public static void add(Entity e) {
-		newEntities.add(e);
+		entities.add(e);
 	}
 	
 	

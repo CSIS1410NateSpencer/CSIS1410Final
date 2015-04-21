@@ -6,24 +6,26 @@ import java.util.Random;
 
 public class Enemy extends Fighter {
 	
-	
+	public static int enemies = 0;
 	Animation walk_right = new Animation("src/images/walk_zombie_right.png",66,94,11);
 	Animation walk_left = new Animation("src/images/walk_zombie_left.png",66,94,11);
 	
 	Animation currentAnimation = walk_left;
-	double speed = .05;
+	double speed = .15;
 	Random rand = new Random();
 	Attack attack;
 	public Enemy(){
-		setPosition(450,200);
+		setPosition();
+		initializeHealth(2);
 		sprite = walk_left.currentSprite();
 		collider.width = sprite.getWidth();
 		collider.height = sprite.getHeight();
 		 attack = new Attack(this,position, sprite.getWidth(), sprite.getHeight());
 		 attack.temporary = false;
+		 enemies++;
 	}
 	public void setPosition(){
-		position.x = 450;
+		position.x = rand.nextInt(150) + 800;
 		position.y = rand.nextInt(500);
 	}
 	public void setPosition(double x,double y){
@@ -50,8 +52,9 @@ public class Enemy extends Fighter {
 
 	@Override
 	void die() {
-		setPosition();
-		health = starterHealth;
+		attack.destroy();
+		destroy();
+		enemies--;
 	}
 
 }

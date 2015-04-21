@@ -27,7 +27,7 @@ public abstract class Entity implements Comparable<Entity>{
 		if(sprite != null) {
 			sprite.draw(g, (int)(position.x - Game.cameraPosition.x), (int)(position.y - Game.cameraPosition.y));
 		}
-		g.drawRect((int)(position.x - Game.cameraPosition.x), (int)(position.y - Game.cameraPosition.y),(int)collider.width, (int)collider.height);
+		//g.drawRect((int)(position.x - Game.cameraPosition.x), (int)(position.y - Game.cameraPosition.y),(int)collider.width, (int)collider.height);
 	}
 
 	public static void checkCollision(Entity a, Entity b) {

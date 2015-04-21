@@ -24,13 +24,12 @@ public class Player extends Fighter {
 	
 	private Animation praise = new Animation("src/images/praise_the_sun.png",80,135,10);
 	
-	private Direction direction = Direction.Down;
+	private Direction direction = Direction.Right;
 	
 	
 	public Player(){
 		sprite = currentAnimationSet.get(direction).currentSprite();
-		health = 10;
-		starterHealth = health;
+		initializeHealth(10);
 		collider.width = sprite.getWidth();
 		collider.height = sprite.getHeight();
 	}
@@ -51,19 +50,26 @@ public class Player extends Fighter {
 	public void attack() {
 			currentAnimationSet = attacks;
 			attacks.get(direction).play();
-			new Attack(this, new Point(position.x + direction.getValue(collider.width),position.y),collider.width,collider.height);
 	}
 
 	@Override
 	public void update() {
 		sprite = currentAnimationSet.get(direction).currentSprite();
-		if(currentAnimationSet != attacks && currentAnimationSet != injuries)
-			move();
-		else if(currentAnimationSet.get(direction).isFinished() == true)
-			currentAnimationSet = idles;
-		if(Game.input.isPressed(KeyEvent.VK_SPACE) && currentAnimationSet != attacks && currentAnimationSet != injuries)
-			attack();
 		
+		if(currentAnimationSet.get(direction).isFinished() == true) {
+			if(currentAnimationSet == attacks)
+				new Attack(this, new Point(position.x + direction.getValue(collider.width),position.y),collider.width,collider.height);
+			currentAnimationSet = idles;
+		}
+		
+		if(currentAnimationSet != attacks && currentAnimationSet != injuries){
+			if(Game.input.isPressed(KeyEvent.VK_SPACE))
+					attack();
+			else
+				move();
+		}
+		if(Enemy.enemies == 0)
+			sprite = praise.currentSprite();
 	}
 
 	
@@ -73,14 +79,14 @@ public class Player extends Fighter {
 			super.takeDamage(amount);
 			currentAnimationSet = injuries;
 			injuries.get(direction).play();
-			position.x -= direction.getValue(17);
+			position.x -= direction.getValue(10);
 		}
 	}
 	
 	@Override
 	void die() {
 		position = Point.zero();
-		health = starterHealth;
+		setHealth(starterHealth);
 	}
 
 }

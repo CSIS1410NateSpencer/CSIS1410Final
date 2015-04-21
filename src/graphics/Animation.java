@@ -7,7 +7,7 @@ public class Animation {
 	Sprite[] sprites;
 	int currentIndex = 0;
 	long startTime = System.currentTimeMillis();
-	int delay = 100; //in milliseconds
+	int delay = 75; //in milliseconds
 	
 	public Animation(String path, int width, int height, int numberOfSprites) {
 		sprites = load(path,width,height,numberOfSprites);
@@ -42,10 +42,6 @@ public class Animation {
 
 	public boolean isFinished() {
 		return finished;
-	}
-
-	public void setFinished(boolean finished) {
-		this.finished = finished;
 	}
 
 	public void setDelay(int i) {
