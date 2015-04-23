@@ -27,7 +27,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public static TileMap tileMap;
 	private static List<Entity> entities = new CopyOnWriteArrayList<>();
-	Player player = new Player();
+	Player player;
 	public static Point cameraPosition = new Point(0,0);
 	
 	public static void main(String[] args) {
@@ -50,16 +50,15 @@ public class Game extends Canvas implements Runnable{
 		requestFocus();
 	}
 	private void setupMap() {
-		tileMap = new TileMap("1txt.txt", 32);
-		tileMap.loadTiles("1tiles.png");
+		tileMap = new TileMap("src/LVL1.txt", 96);
+		tileMap.loadTiles("src/images/LVL1.png");
 	}
 	private void setupEntities() {
 		for (int i = 0; i < 2; i++) {
 			new Enemy();
 		}
-		
-		player.position.x = getWidth() / 2 - player.getSprite().getWidth() / 2;
-		player.position.y = getHeight() / 2 - player.getSprite().getHeight() / 2;
+		player = new Player();
+		player.position = new Point(800,600);
 	}
 	private void ensureSize(Dimension size) {
 		setMinimumSize(size);
@@ -76,31 +75,17 @@ public class Game extends Canvas implements Runnable{
 		frame.setLocationRelativeTo(null);
 	}
 	
-	double fps = 0;
 	@Override
 	public void run() {
-		final long NANOS_PER_SECOND = 1000000000;
+		Clock clock = new Clock();
 		double desiredFPS = 60;
-		double delay = NANOS_PER_SECOND / desiredFPS;
-		long startTime = System.nanoTime();
-		long currentTime = startTime;
-		long oldTime = startTime;
-		double elapsed;
-		int frames = 0;
-		long totalElapsed = 0;
-		
+		double delay = Clock.NANOS_PER_SECOND / desiredFPS;
 		while(true) {
-			currentTime = System.nanoTime();
-			elapsed = currentTime - oldTime;
-			totalElapsed = currentTime - startTime;
-			if(elapsed >= delay){
+			clock.tick();
+			if(clock.getElapsed() >= delay){
 				update();
 				render();
-				oldTime = currentTime;
-				frames++;
-				if(totalElapsed > 0)
-				fps = frames / (totalElapsed/(double)NANOS_PER_SECOND);
-				
+				clock.reset();
 			}
 		}
 	}

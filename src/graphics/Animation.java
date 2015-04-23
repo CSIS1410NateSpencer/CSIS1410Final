@@ -1,31 +1,43 @@
 package graphics;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+
 public class Animation {
-	Sprite[] sprites;
+	BufferedImage[] sprites;
 	int currentIndex = 0;
 	long startTime = System.currentTimeMillis();
 	int delay = 75; //in milliseconds
 	
-	public Animation(String path, int width, int height, int numberOfSprites) {
-		sprites = load(path,width,height,numberOfSprites);
+	public Animation(String path, int numberOfSprites) {
+		sprites = load(path, numberOfSprites);
 		startTime = System.currentTimeMillis();
 		
 	}
 	
-	private static Sprite[] load(String path, int width, int height, int numberOfSprites){
-		ArrayList<Sprite> sprites = new ArrayList<>();
+	private static BufferedImage[] load(String path, int numberOfSprites){
+		ArrayList<BufferedImage> sprites = new ArrayList<>();
+		
 		for (int x = 0; x < numberOfSprites; x++) {
-			for (int y = 0; y < 1; y++) {
-				sprites.add(Sprite.load(path,x,y,width,height));
+			try {
+				BufferedImage rawImage = ImageIO.read(new File(path));
+				int width = rawImage.getWidth() / numberOfSprites;
+				int height = rawImage.getHeight();
+				BufferedImage img = rawImage.getSubimage(x * width, 0, width, height);
+				sprites.add(img);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
-		return sprites.toArray(new Sprite[]{});
+		return sprites.toArray(new BufferedImage[]{});
 	}
 
-	public Sprite currentSprite() {
+	public BufferedImage currentSprite() {
 		double elapsedMilliseconds = (System.currentTimeMillis() - startTime);
 		currentIndex = (int)((elapsedMilliseconds / delay) % sprites.length);
 		if (currentIndex == sprites.length - 1 && !looping)
@@ -46,11 +58,5 @@ public class Animation {
 
 	public void setDelay(int i) {
 		delay = i;
-	}
-
-	public void setXOffset(int xOffset) {
-		for (Sprite sprite : sprites) {
-			sprite.setxOffset(xOffset);
-		}
 	}
 }

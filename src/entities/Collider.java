@@ -25,6 +25,7 @@ public class Collider {
 		this.height = height;
 	}
 	
+	//checks for intersection between entities
 	public static boolean intersects(Collider a, Collider b) {
 		if (a.position.x + a.attachedTo.position.x + a.width < b.position.x + b.attachedTo.position.x
 				|| a.position.y + a.attachedTo.position.y + a.height < b.position.y + b.attachedTo.position.y

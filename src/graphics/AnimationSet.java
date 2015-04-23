@@ -12,11 +12,11 @@ public class AnimationSet {
 		this.animations = animations;
 	}
 	
-	public static AnimationSet getAnimations(String type,int width, int height, int numberOfSprites){
+	public static AnimationSet loadAnimations(String type, int numberOfSprites){
 		Map<Direction,Animation> animations = new HashMap<>();
 		for (int i = 0; i < Direction.values().length; i++) {
 			Direction d = Direction.values()[i];
-			animations.put(d, new Animation("src/images/" + type + "_" + d + ".png",width,height,numberOfSprites));
+			animations.put(d, new Animation("src/images/" + type + "_" + d + ".png",numberOfSprites));
 		}
 		return new AnimationSet(animations);
 	}

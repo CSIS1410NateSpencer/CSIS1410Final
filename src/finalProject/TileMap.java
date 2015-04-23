@@ -1,11 +1,9 @@
 package finalProject;
-import graphics.Tile;
-
 import java.io.*;
 import java.awt.*;
 import java.awt.image.*;
-
 import javax.imageio.ImageIO;
+import graphics.Tile;
 
 public class TileMap {
 	
@@ -65,14 +63,14 @@ public class TileMap {
 			BufferedImage subimage;
 			for(int col = 1; col < numTilesAcross; col++) {
 				subimage = tileset.getSubimage(
-					col * tileSize - 32,
+					col * tileSize -tileSize,
 					0,
 					tileSize,
 					tileSize
 				);
 				tiles[0][col] = new Tile(subimage, false);
 				subimage = tileset.getSubimage(
-					col * tileSize - 32,
+					col * tileSize -tileSize ,
 					tileSize,
 					tileSize,
 					tileSize
@@ -129,11 +127,14 @@ public class TileMap {
 		}
 	}
 	
+	////////////////////////////////////////////////////////////////////////////
+	
 	public void update() {
 		
 	}
 	
 	public void draw(Graphics g) {
+		
 		
 		for(int row = 0; row < mapHeight; row++) {
 			for(int col = 0; col < mapWidth; col++) {
@@ -142,25 +143,28 @@ public class TileMap {
 				
 				int r = rc / tiles[0].length;
 				int c = rc % tiles[0].length;
-				
+//				try{
 				g.drawImage(
 					tiles[r][c].getImage(),
 					x + col * tileSize - (int)Game.cameraPosition.x,
 					y + row * tileSize - (int)Game.cameraPosition.y,
 					null
 				);
+//				}catch(Exception e){
+//					e.printStackTrace();
+//				}
 				
 			}
 		}
 		
 	}
-	
+
 	public int getTotalMapWidth() {
-		return mapWidth * tileSize;
+		return tileSize * mapWidth;
 	}
 
 	public int getTotalMapHeight() {
-		return mapHeight * tileSize;
+		return tileSize * mapHeight;
 	}
 	
 }

@@ -7,8 +7,8 @@ import java.util.Random;
 public class Enemy extends Fighter {
 	
 	public static int enemies = 0;
-	Animation walk_right = new Animation("src/images/walk_zombie_right.png",66,94,11);
-	Animation walk_left = new Animation("src/images/walk_zombie_left.png",66,94,11);
+	Animation walk_right = new Animation("src/images/walk_zombie_right.png",11);
+	Animation walk_left = new Animation("src/images/walk_zombie_left.png",11);
 	
 	Animation currentAnimation = walk_left;
 	double speed = .15;

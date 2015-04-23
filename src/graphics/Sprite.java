@@ -14,7 +14,7 @@ public class Sprite {
 	private int xOffset;
 	private int yOffset;
 	
-	private Sprite(BufferedImage image) {
+	public Sprite(BufferedImage image) {
 		this.image = image;
 		this.width = image.getWidth();
 		this.height = image.getHeight();
@@ -32,6 +32,7 @@ public class Sprite {
 	public static Sprite load(String path, int x, int y, int width, int height) {
 		try {
 			BufferedImage rawImage = ImageIO.read(new File(path));
+			
 			int[] pixels = new int[width * height];
 			rawImage.getRGB(x * width, y * height, width, height, pixels, 0, width);
 			BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);

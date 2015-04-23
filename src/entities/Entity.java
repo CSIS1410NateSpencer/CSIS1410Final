@@ -5,11 +5,12 @@ import finalProject.Point;
 import graphics.Sprite;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public abstract class Entity implements Comparable<Entity>{
 	public Point position = new Point();
-	protected Sprite sprite = null;	
+	protected BufferedImage sprite = null;	
 	
 	protected Collider collider;
 	
@@ -25,9 +26,9 @@ public abstract class Entity implements Comparable<Entity>{
 	public final void draw(Graphics g) {
 		
 		if(sprite != null) {
-			sprite.draw(g, (int)(position.x - Game.cameraPosition.x), (int)(position.y - Game.cameraPosition.y));
+			g.drawImage(sprite, (int)(position.x - Game.cameraPosition.x), (int)(position.y - Game.cameraPosition.y),null);
 		}
-		//g.drawRect((int)(position.x - Game.cameraPosition.x), (int)(position.y - Game.cameraPosition.y),(int)collider.width, (int)collider.height);
+		g.drawRect((int)(position.x - Game.cameraPosition.x), (int)(position.y - Game.cameraPosition.y),(int)collider.width, (int)collider.height);
 	}
 
 	public static void checkCollision(Entity a, Entity b) {
@@ -55,10 +56,12 @@ public abstract class Entity implements Comparable<Entity>{
 			return -1;
 		return 0;
 	}
-	public Sprite getSprite() {
+	public BufferedImage getSprite() {
 		return sprite;
 	}
 	void destroy() {
 		Game.remove(this);
 	}
+	
+	
 }
