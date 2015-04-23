@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JFrame;
@@ -24,8 +25,8 @@ public class Game extends Canvas implements Runnable{
 	Graphics g;
 	public static Input input = new Input();
 	
-	private TileMap tileMap;
-	private static CopyOnWriteArrayList<Entity> entities = new CopyOnWriteArrayList<>();
+	public static TileMap tileMap;
+	private static List<Entity> entities = new CopyOnWriteArrayList<>();
 	Player player = new Player();
 	public static Point cameraPosition = new Point(0,0);
 	
@@ -159,6 +160,16 @@ public class Game extends Canvas implements Runnable{
 	private void positionCamera() {
 		cameraPosition.x = interpolate(cameraPosition.x, player.position.x - getWidth() / 2 + player.getSprite().getWidth() / 2,.05);
 		cameraPosition.y = interpolate(cameraPosition.y, player.position.y - getHeight() / 2 + player.getSprite().getHeight() / 2,.05);
+		cameraPosition.x = clamp(cameraPosition.x,0,tileMap.getTotalMapWidth() - getWidth());
+		cameraPosition.y = clamp(cameraPosition.y,0,tileMap.getTotalMapHeight() - getHeight());
+	}
+	
+	double clamp(double base, double lower, double upper){
+		if(base < lower)
+			return lower;
+		if(base > upper)
+			return upper;
+		return base;
 	}
 	
 	public static void remove(Entity e) {

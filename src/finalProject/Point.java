@@ -10,6 +10,17 @@ public class Point {
 	public Point(double x, double y){
 		this.x = x; this.y = y;
 	}
+	
+	public static Point zero(){
+		return new Point(0.0,0.0);
+	}
+	public Point multiply(double speed) {
+		return new Point(x * speed, y * speed);
+	}
+	public Point add(Point v) {
+		return new Point(x + v.x, y + v.y);
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -36,14 +47,8 @@ public class Point {
 			return false;
 		return true;
 	}
-	
-	public static Point zero(){
-		return new Point(0.0,0.0);
-	}
-	public Point multiply(double speed) {
-		return new Point(x * speed, y * speed);
-	}
-	public Point add(Point v) {
-		return new Point(x + v.x, y + v.y);
+	@Override
+	public String toString() {
+		return String.format("[%s, %s]",x,y);
 	}
 }

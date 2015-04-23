@@ -18,7 +18,7 @@ public class TileMap {
 	private int mapHeight;
 	
 	private BufferedImage tileset;
-	private Tile[][] tile;
+	private Tile[][] tiles;
 	
 	private int minx;
 	private int miny;
@@ -60,7 +60,7 @@ public class TileMap {
 			
 			tileset = ImageIO.read(new File(s));
 			int numTilesAcross = (tileset.getWidth()) / (tileSize);
-			tile = new Tile[2][numTilesAcross];
+			tiles = new Tile[2][numTilesAcross];
 			
 			BufferedImage subimage;
 			for(int col = 1; col < numTilesAcross; col++) {
@@ -70,14 +70,14 @@ public class TileMap {
 					tileSize,
 					tileSize
 				);
-				tile[0][col] = new Tile(subimage);
+				tiles[0][col] = new Tile(subimage, false);
 				subimage = tileset.getSubimage(
 					col * tileSize - 32,
 					tileSize,
 					tileSize,
 					tileSize
 				);
-				tile[1][col] = new Tile(subimage);
+				tiles[1][col] = new Tile(subimage, true);
 				
 			}
 		}
@@ -103,13 +103,13 @@ public class TileMap {
 		return tileSize;
 	}
 	
-//	public boolean isBlocked(int row, int col) {
-//		int rc = map[row][col];
-//		int r = rc / tiles[0].length;
-//		int c = rc % tiles[0].length;
-//		return tiles[r][c].isBlocked();
-//	}
-//	
+	public boolean isBlocked(int row, int col) {
+		int rc = map[row][col];
+		int r = rc / tiles[0].length;
+		int c = rc % tiles[0].length;
+		return tiles[r][c].isBlocked();
+	}
+	
 	public void setx(int i) {
 		x = i;
 		if(x < minx) {
@@ -129,8 +129,6 @@ public class TileMap {
 		}
 	}
 	
-	////////////////////////////////////////////////////////////////////////////
-	
 	public void update() {
 		
 	}
@@ -142,11 +140,11 @@ public class TileMap {
 				
 				int rc = map[row][col];
 				
-				int r = rc / tile[0].length;
-				int c = rc % tile[0].length;
+				int r = rc / tiles[0].length;
+				int c = rc % tiles[0].length;
 				
 				g.drawImage(
-					tile[r][c].getImage(),
+					tiles[r][c].getImage(),
 					x + col * tileSize - (int)Game.cameraPosition.x,
 					y + row * tileSize - (int)Game.cameraPosition.y,
 					null
@@ -155,6 +153,14 @@ public class TileMap {
 			}
 		}
 		
+	}
+	
+	public int getTotalMapWidth() {
+		return mapWidth * tileSize;
+	}
+
+	public int getTotalMapHeight() {
+		return mapHeight * tileSize;
 	}
 	
 }
