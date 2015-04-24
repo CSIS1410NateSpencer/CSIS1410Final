@@ -147,6 +147,8 @@ public class Game extends Canvas implements Runnable{
 		cameraPosition.y = interpolate(cameraPosition.y, player.position.y - getHeight() / 2 + player.getSprite().getHeight() / 2,.05);
 		cameraPosition.x = clamp(cameraPosition.x,0,tileMap.getTotalMapWidth() - getWidth());
 		cameraPosition.y = clamp(cameraPosition.y,0,tileMap.getTotalMapHeight() - getHeight());
+		tileMap.setx((int)-cameraPosition.x);
+		tileMap.sety((int)-cameraPosition.y);
 	}
 	
 	double clamp(double base, double lower, double upper){

@@ -8,7 +8,7 @@ public enum Direction {
 		return super.toString().toLowerCase();
 	}
 	
-	public int getValue(int i) {
+	public double getSign(double i) {
 		if(this == Up || this == Left)
 			return -i;
 		else return i;

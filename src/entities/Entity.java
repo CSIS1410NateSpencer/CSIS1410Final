@@ -24,11 +24,12 @@ public abstract class Entity implements Comparable<Entity>{
 	}
 	public abstract void update();
 	public final void draw(Graphics g) {
-		
+		int tx = Game.tileMap.getx();
+		int ty = Game.tileMap.gety();
 		if(sprite != null) {
-			g.drawImage(sprite, (int)(position.x - Game.cameraPosition.x), (int)(position.y - Game.cameraPosition.y),null);
+			g.drawImage(sprite, (int)(tx + position.x - sprite.getWidth() / 2), (int)(ty + position.y - sprite.getHeight() / 2),null);
 		}
-		g.drawRect((int)(position.x - Game.cameraPosition.x), (int)(position.y - Game.cameraPosition.y),(int)collider.width, (int)collider.height);
+		//g.drawRect((int)(position.x - Game.cameraPosition.x), (int)(position.y - Game.cameraPosition.y),(int)collider.width, (int)collider.height);
 	}
 
 	public static void checkCollision(Entity a, Entity b) {

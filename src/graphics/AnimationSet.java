@@ -14,8 +14,7 @@ public class AnimationSet {
 	
 	public static AnimationSet loadAnimations(String type, int numberOfSprites){
 		Map<Direction,Animation> animations = new HashMap<>();
-		for (int i = 0; i < Direction.values().length; i++) {
-			Direction d = Direction.values()[i];
+		for (Direction d : Direction.values()) {
 			animations.put(d, new Animation("src/images/" + type + "_" + d + ".png",numberOfSprites));
 		}
 		return new AnimationSet(animations);

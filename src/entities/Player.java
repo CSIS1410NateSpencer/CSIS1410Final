@@ -10,20 +10,14 @@ import java.awt.event.KeyEvent;
 
 public class Player extends Fighter {
 	
-	double speed = 1;//in pixels per update
+	double speed = 2;//in pixels per update
 	Point velocity;
 	
-	AnimationSet walks = AnimationSet.loadAnimations("walk",8);
-	AnimationSet idles = AnimationSet.loadAnimations("idle",8);
-	AnimationSet attacks = AnimationSet.loadAnimations("attack",9);
-	AnimationSet injuries = AnimationSet.loadAnimations("injury",2);
-	
+	AnimationSet idles;
 	private boolean topLeft;
 	private boolean topRight;
 	private boolean bottomLeft;
 	private boolean bottomRight;
-	
-	private AnimationSet currentAnimationSet = idles;
 	
 	private Animation praise = new Animation("src/images/praise_the_sun.png",10);
 	
@@ -31,8 +25,16 @@ public class Player extends Fighter {
 	
 	
 	public Player(){
-		sprite = currentAnimationSet.get(direction).currentSprite();
-		initializeHealth(10);
+		initializeHealth(9);
+		
+		
+		walks = AnimationSet.loadAnimations("walking",8);
+		idles = AnimationSet.loadAnimations("idle",8);
+		attacks = AnimationSet.loadAnimations("attack",9);
+		damage = AnimationSet.loadAnimations("dmg",4);
+		die = AnimationSet.loadAnimations("die",14);
+		setCurrentAnimationSet(idles);
+		sprite = getCurrentAnimationSet().get(direction).currentSprite();
 		collider.width = sprite.getWidth();
 		collider.height = sprite.getHeight();
 	}
@@ -42,10 +44,10 @@ public class Player extends Fighter {
 		velocity = Game.input.getPoint();
 		if(!velocity.equals(Point.zero())) {
 			direction = Game.input.getDirection();
-			currentAnimationSet = walks;
+			setCurrentAnimationSet(walks);
 		}
 		else
-			currentAnimationSet = idles;
+			setCurrentAnimationSet(idles);
 
 		adjustForCollision();
 	}
@@ -54,21 +56,23 @@ public class Player extends Fighter {
 
 	@Override
 	public void attack() {
-			currentAnimationSet = attacks;
+			setCurrentAnimationSet(attacks);
 			attacks.get(direction).play();
 	}
 
 	@Override
 	public void update() {
-		sprite = currentAnimationSet.get(direction).currentSprite();
+		sprite = getCurrentAnimationSet().get(direction).currentSprite();
 		
-		if(currentAnimationSet.get(direction).isFinished() == true) {
-			if(currentAnimationSet == attacks)
-				new Attack(this, new Point(position.x + direction.getValue(collider.width),position.y),collider.width,collider.height);
-			currentAnimationSet = idles;
+		if(getCurrentAnimationSet().get(direction).isFinished() == true) {
+			if(getCurrentAnimationSet() == attacks)
+				new Attack(this, new Point(position.x + direction.getSign(collider.width),position.y),collider.width,collider.height);
+			if(getCurrentAnimationSet() == die)
+				respawn();
+			setCurrentAnimationSet(idles);
 		}
 		
-		if(currentAnimationSet != attacks && currentAnimationSet != injuries){
+		if(getCurrentAnimationSet() == idles || getCurrentAnimationSet() == walks){
 			if(Game.input.isPressed(KeyEvent.VK_SPACE))
 					attack();
 			else
@@ -80,20 +84,26 @@ public class Player extends Fighter {
 		
 	}
 
+	private void respawn() {
+		position = new Point(800,800);
+		setHealth(starterHealth);
+		alive = true;
+	}
+
 	@Override
 	void takeDamage(int amount) {
-		if(currentAnimationSet != injuries) {
+		if(getCurrentAnimationSet() != damage) {
 			super.takeDamage(amount);
-			currentAnimationSet = injuries;
-			injuries.get(direction).play();
-			position.x -= direction.getValue(10);
+			damage.get(direction).play();
+			position.x -= direction.getSign(10);
 		}
 	}
 	
 	@Override
 	void die() {
-		position = Point.zero();
-		setHealth(starterHealth);
+		super.die();
+		System.out.println("dont leave this magic number here");
+		
 	}
 	
 	private void calculateCorners(double x, double y) {
