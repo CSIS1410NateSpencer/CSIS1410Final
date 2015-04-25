@@ -21,13 +21,12 @@ public class Player extends Fighter {
 	
 	private Animation praise = new Animation("src/images/praise_the_sun.png",10);
 	
-	private Direction direction = Direction.Right;
 	
-	Point startingPoint = new Point(2400,600);
+	Point startingPoint = new Point(2175,350);
 	public Player(){
 		initializeHealth(9);
 		
-		
+		direction = Direction.Down;
 		walks = AnimationSet.loadAnimations("walking",8);
 		idles = AnimationSet.loadAnimations("idle",8);
 		attacks = AnimationSet.loadAnimations("attack",9);
@@ -86,7 +85,7 @@ public class Player extends Fighter {
 	}
 
 	private void respawn() {
-		position = startingPoint;
+		position = new Point(startingPoint.x,startingPoint.y);
 		setHealth(starterHealth);
 		alive = true;
 	}

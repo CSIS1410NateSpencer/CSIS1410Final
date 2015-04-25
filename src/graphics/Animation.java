@@ -31,18 +31,20 @@ public class Animation {
 				BufferedImage img = rawImage.getSubimage(x * width, 0, width, height);
 				sprites.add(img);
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		}
 		return sprites.toArray(new BufferedImage[]{});
 	}
 
 	public BufferedImage currentSprite() {
-		double elapsedMilliseconds = (System.currentTimeMillis() - startTime);
-		currentIndex = (int)((elapsedMilliseconds / delay) % sprites.length);
-		if (currentIndex == sprites.length - 1 && !looping)
-			finished = true;
-		return sprites[currentIndex];
+		if (!finished) {
+			double elapsedMilliseconds = (System.currentTimeMillis() - startTime);
+			currentIndex = (int) ((elapsedMilliseconds / delay) % sprites.length);
+			if (currentIndex == sprites.length - 1 && !looping)
+				finished = true;
+			return sprites[currentIndex];
+		}
+		else return sprites[sprites.length - 1];
 	}
 	
 	private boolean finished = false;

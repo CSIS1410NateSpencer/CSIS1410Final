@@ -16,7 +16,7 @@ public abstract class Fighter extends Entity {
 	protected AnimationSet currentAnimationSet;
 	private int health;
 	protected int starterHealth;
-	private Direction direction = Direction.Right;
+	protected Direction direction = Direction.Right;
 	
 	protected void initializeHealth(int health) {
 		setHealth(health);
