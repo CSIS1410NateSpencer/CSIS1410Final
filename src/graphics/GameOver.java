@@ -71,6 +71,22 @@ public class GameOver extends Component {
 			g2d.drawString(Integer.toString(el), 404, i * 70 + 280);
 		}
 		g2d.finalize();
+		
+		
+//		 PrintWriter pw;
+//		try {
+//			pw = new PrintWriter(new FileOutputStream("src/top_scores.txt"));
+//			for (Integer el : scores)
+//		        pw.println(el);
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		    
+		    
+		
 
 	}
+	
+	
 }
