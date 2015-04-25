@@ -33,17 +33,11 @@ public class Game extends Canvas implements Runnable{
 	Graphics g;
 	public static Input input = new Input();
 	
-	public static TileMap tileMap;
-	public static List<Entity> entities = new CopyOnWriteArrayList<>();
-	public static Player player;
-	public static Point cameraPosition = new Point(0,0);
 	
-	public static AudioPlayer audio = new AudioPlayer();
-	public HUD hud = new HUD();
 	public MenuState menuState = new MenuState(this);
 	public PlayState playState = new PlayState(this);
 	public CreditsState creditsState = new CreditsState(this);
-	public State state = creditsState;
+	public State state = playState;
 	
 	public static void main(String[] args) {
 		Game game = new Game();
@@ -54,8 +48,6 @@ public class Game extends Canvas implements Runnable{
 	public Game(){
 		setupWindow();
 		setupInput();
-		setupMap();
-		setupEntities();
 		frame.setVisible(true);
 	}
 	
@@ -65,16 +57,7 @@ public class Game extends Canvas implements Runnable{
 		setFocusable(true);
 		requestFocus();
 	}
-	private void setupMap() {
-		tileMap = new TileMap("src/dungeon.txt", 96);
-		tileMap.loadTiles("src/images/dungeon.png");
-	}
-	private void setupEntities() {
-		for (int i = 0; i < 6; i++) {
-			new Enemy();
-		}
-		player = new Player();
-	}
+	
 	private void ensureSize(Dimension size) {
 		setMinimumSize(size);
 		setPreferredSize(size);
@@ -95,6 +78,7 @@ public class Game extends Canvas implements Runnable{
 		Clock clock = new Clock();
 		double desiredFPS = 60;
 		double delay = Clock.NANOS_PER_SECOND / desiredFPS;
+		
 		while (true) {
 			clock.tick();
 			if (clock.getElapsed() >= delay) {
@@ -132,21 +116,7 @@ public class Game extends Canvas implements Runnable{
 	
 	
 	
-	public void positionCamera() {
-		cameraPosition.x = Maths.interpolate(cameraPosition.x, player.position.x - getWidth() / 2 + player.getSprite().getWidth() / 2,.05);
-		cameraPosition.y = Maths.interpolate(cameraPosition.y, player.position.y - getHeight() / 2 + player.getSprite().getHeight() / 2,.05);
-		cameraPosition.x = Maths.clamp(cameraPosition.x,0,tileMap.getTotalMapWidth() - getWidth());
-		cameraPosition.y = Maths.clamp(cameraPosition.y,0,tileMap.getTotalMapHeight() - getHeight());
-		tileMap.setx((int)-cameraPosition.x);
-		tileMap.sety((int)-cameraPosition.y);
-	}
 	
-	public static void remove(Entity e) {
-		entities.remove(e);
-	}
-	public static void add(Entity e) {
-		entities.add(e);
-	}
 	
 	
 }

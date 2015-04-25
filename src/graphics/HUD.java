@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+import state.PlayState;
 import entities.Enemy;
 import finalProject.Game;
 
@@ -23,7 +24,7 @@ public class HUD extends Component{
 		g2d.drawImage(img1, 0, 710, this);
 		
 		g2d.setColor(Color.RED);
-		for(int i = 0; i < Game.player.getHealth(); i++){
+		for(int i = 0; i < PlayState.player.getHealth(); i++){
 			g2d.fillRect(i * 8+ 62,760,6,8);
 		}
 		g2d.setColor(Color.WHITE);

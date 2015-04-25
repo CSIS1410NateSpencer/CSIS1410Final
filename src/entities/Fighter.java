@@ -2,7 +2,7 @@ package entities;
 
 import maths.Point;
 import finalProject.Direction;
-import finalProject.Game;
+import state.PlayState;
 import graphics.AnimationSet;
 
 
@@ -89,19 +89,19 @@ public abstract class Fighter extends Entity {
 	}
 	
 	private void calculateCorners(double x, double y) {
-		int leftTile = Game.tileMap.getColTile((int) (x - collider.width / 2));
-		int rightTile = Game.tileMap.getColTile((int) (x + collider.width / 2) - 1);
-		int topTile = Game.tileMap.getRowTile((int) (y - collider.height / 2));
-		int bottomTile = Game.tileMap.getRowTile((int) (y + collider.height / 2) - 1);
-		topLeft = Game.tileMap.isBlocked(topTile, leftTile);
-		topRight = Game.tileMap.isBlocked(topTile, rightTile);
-		bottomLeft = Game.tileMap.isBlocked(bottomTile, leftTile);
-		bottomRight = Game.tileMap.isBlocked(bottomTile, rightTile);
+		int leftTile = PlayState.tileMap.getColTile((int) (x - collider.width / 2));
+		int rightTile = PlayState.tileMap.getColTile((int) (x + collider.width / 2) - 1);
+		int topTile = PlayState.tileMap.getRowTile((int) (y - collider.height / 2));
+		int bottomTile = PlayState.tileMap.getRowTile((int) (y + collider.height / 2) - 1);
+		topLeft = PlayState.tileMap.isBlocked(topTile, leftTile);
+		topRight = PlayState.tileMap.isBlocked(topTile, rightTile);
+		bottomLeft = PlayState.tileMap.isBlocked(bottomTile, leftTile);
+		bottomRight = PlayState.tileMap.isBlocked(bottomTile, rightTile);
 	}
 	
 	protected void moveAdjustingForTileCollision() {
-		int currCol = Game.tileMap.getColTile((int) position.x);
-		int currRow = Game.tileMap.getRowTile((int) position.y);
+		int currCol = PlayState.tileMap.getColTile((int) position.x);
+		int currRow = PlayState.tileMap.getRowTile((int) position.y);
 
 		double tox = position.x + velocity.x;
 		double toy = position.y + velocity.y;
@@ -113,7 +113,7 @@ public abstract class Fighter extends Entity {
 		if (velocity.y < 0) {
 			if (topLeft || topRight) {
 				velocity.y = 0;
-				tempy = currRow * Game.tileMap.getTileSize() + collider.height / 2;
+				tempy = currRow * PlayState.tileMap.getTileSize() + collider.height / 2;
 			} else {
 				tempy += velocity.y;
 			}
@@ -121,7 +121,7 @@ public abstract class Fighter extends Entity {
 		if (velocity.y > 0) {
 			if (bottomLeft || bottomRight) {
 				velocity.y = 0;
-				tempy = (currRow + 1) * Game.tileMap.getTileSize() - collider.height / 2;
+				tempy = (currRow + 1) * PlayState.tileMap.getTileSize() - collider.height / 2;
 			} else {
 				tempy += velocity.y;
 			}
@@ -131,7 +131,7 @@ public abstract class Fighter extends Entity {
 		if (velocity.x < 0) {
 			if (topLeft || bottomLeft) {
 				velocity.x = 0;
-				tempx = currCol * Game.tileMap.getTileSize() + collider.width / 2;
+				tempx = currCol * PlayState.tileMap.getTileSize() + collider.width / 2;
 			} else {
 				tempx += velocity.x;
 			}
@@ -139,7 +139,7 @@ public abstract class Fighter extends Entity {
 		if (velocity.x > 0) {
 			if (topRight || bottomRight) {
 				velocity.x = 0;
-				tempx = (currCol + 1) * Game.tileMap.getTileSize() - collider.width / 2;
+				tempx = (currCol + 1) * PlayState.tileMap.getTileSize() - collider.width / 2;
 			} else {
 				tempx += velocity.x;
 			}

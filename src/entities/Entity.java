@@ -1,10 +1,11 @@
 package entities;
 
-import finalProject.Game;
+import state.PlayState;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import state.PlayState;
 import maths.Point;
 
 public abstract class Entity implements Comparable<Entity>{
@@ -15,7 +16,7 @@ public abstract class Entity implements Comparable<Entity>{
 	
 	public Entity() {
 		collider = new Collider(this, 0, 0, 0, 0);
-		Game.add(this);
+		PlayState.add(this);
 	}
 	
 	public Entity(Point position, int width, int height) {
@@ -23,8 +24,8 @@ public abstract class Entity implements Comparable<Entity>{
 	}
 	public abstract void update();
 	public final void draw(Graphics g) {
-		int tx = Game.tileMap.getx();
-		int ty = Game.tileMap.gety();
+		int tx = PlayState.tileMap.getx();
+		int ty = PlayState.tileMap.gety();
 		if(sprite != null) {
 			g.drawImage(sprite, (int)(tx + position.x - sprite.getWidth() / 2), (int)(ty + position.y - sprite.getHeight() / 2),null);
 		}
@@ -60,7 +61,7 @@ public abstract class Entity implements Comparable<Entity>{
 		return sprite;
 	}
 	void destroy() {
-		Game.remove(this);
+		PlayState.remove(this);
 	}
 	
 	
