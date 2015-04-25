@@ -2,11 +2,13 @@ package graphics;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+import entities.Enemy;
 import finalProject.Game;
 
 public class HUD extends Component{
@@ -19,7 +21,9 @@ public class HUD extends Component{
 		for(int i = 0; i < Game.player.getHealth(); i++){
 			g2d.fillRect(i * 8+ 62,760,6,8);
 		}
-		
+		g2d.setColor(Color.WHITE);
+		g2d.setFont(new Font("arial", Font.BOLD, 14));
+		g2d.drawString(Integer.toString(Enemy.enemies), 188, 796);
 		
 		System.out.println();
 		//g2d.finalize();
