@@ -80,6 +80,7 @@ public class Player extends Fighter {
 		}
 		if(Enemy.enemies == 0)
 			sprite = praise.currentSprite();
+			//Game.score += 100;
 		
 		
 	}
@@ -88,6 +89,7 @@ public class Player extends Fighter {
 		position = new Point(startingPoint.x,startingPoint.y);
 		setHealth(starterHealth);
 		alive = true;
+		
 	}
 
 	@Override
@@ -96,6 +98,7 @@ public class Player extends Fighter {
 			super.takeDamage(amount);
 			damage.get(direction).play();
 			position.x -= direction.getSign(10);
+			Game.score -=5000;
 		}
 	}
 	
@@ -103,7 +106,7 @@ public class Player extends Fighter {
 	void die() {
 		super.die();
 		System.out.println("dont leave this magic number here");
-		
+		Game.score-=100000;
 	}
 	
 	private void calculateCorners(double x, double y) {

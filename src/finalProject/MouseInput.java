@@ -4,6 +4,8 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import finalProject.Game.STATE;
+
 public class MouseInput implements MouseListener {
 
 	@Override
@@ -29,6 +31,7 @@ public class MouseInput implements MouseListener {
 		
 		int mx = e.getX();
 		int my = e.getY();
+		if(Game.State == STATE.MENU){
 		// start
 		if (mx >= 400 && mx <= 600) {
 			if (my >= 330 && my <= 400) {
@@ -42,7 +45,7 @@ public class MouseInput implements MouseListener {
 				// pressed exit button
 				System.exit(1);
 			}
-		}
+		}}
 	}
 
 	@Override

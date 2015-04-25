@@ -24,6 +24,8 @@ public class HUD extends Component{
 		g2d.setColor(Color.WHITE);
 		g2d.setFont(new Font("arial", Font.BOLD, 14));
 		g2d.drawString(Integer.toString(Enemy.enemies), 188, 796);
+		g2d.setFont(new Font("arial", Font.BOLD, 20));
+		g2d.drawString(Integer.toString(Game.score), 82, 726);
 		
 		System.out.println();
 		//g2d.finalize();

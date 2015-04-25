@@ -1,6 +1,7 @@
 package entities;
 
 import finalProject.Direction;
+import finalProject.Game;
 import graphics.Animation;
 import graphics.AnimationSet;
 
@@ -18,7 +19,7 @@ public class Enemy extends Fighter {
 		setDirection(Direction.Left);
 		//setPosition(500-2100,2400-3000);
 		setPosition();
-		initializeHealth(5);
+		initializeHealth(2);
 		walks = AnimationSet.loadAnimations("walk_zombie", 11);
 		damage = AnimationSet.loadAnimations("damaged", 4);
 		die = AnimationSet.loadAnimations("die_enemy", 11);
@@ -75,7 +76,7 @@ public class Enemy extends Fighter {
 		super.die();
 		attack.destroy();
 		enemies--;
-		
+		Game.score += 100000;
 		
 	}
 
