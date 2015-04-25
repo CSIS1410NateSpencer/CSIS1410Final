@@ -23,9 +23,9 @@ public class Player extends Fighter {
 	
 	private Direction direction = Direction.Right;
 	
-	Point startingPoint = new Point(2400,600);
+	Point startingPoint = new Point(2200,420);
 	public Player(){
-		initializeHealth(9);
+		initializeHealth(16);
 		
 		
 		walks = AnimationSet.loadAnimations("walking",8);

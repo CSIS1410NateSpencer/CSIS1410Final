@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import entities.Enemy;
 import entities.Entity;
 import entities.Player;
+import graphics.HUD;
 
 public class Game extends Canvas implements Runnable{
 	JFrame frame;
@@ -27,8 +28,9 @@ public class Game extends Canvas implements Runnable{
 	
 	public static TileMap tileMap;
 	private static List<Entity> entities = new CopyOnWriteArrayList<>();
-	Player player;
+	public static Player player;
 	public static Point cameraPosition = new Point(0,0);
+	HUD hud = new HUD();
 	Menu menu = new Menu();
 	public static enum STATE {
 		MENU, GAME
@@ -61,7 +63,7 @@ public class Game extends Canvas implements Runnable{
 		tileMap.loadTiles("src/images/dungeon.png");
 	}
 	private void setupEntities() {
-		for (int i = 0; i < 35; i++) {
+		for (int i = 0; i < 3; i++) {
 			new Enemy();
 		}
 		player = new Player();
@@ -140,6 +142,7 @@ public class Game extends Canvas implements Runnable{
 		else if (State == STATE.GAME){
 		//draw the level
 		tileMap.draw(g);
+		hud.render(g);
 		
 		//draw objects in the level;
 		for (Entity entity : entities) {

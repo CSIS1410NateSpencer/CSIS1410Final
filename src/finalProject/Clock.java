@@ -1,7 +1,7 @@
 package finalProject;
 
 public class Clock {
-	public static final long NANOS_PER_SECOND = 1000000000;
+	public static final long NANOS_PER_SECOND = 10000000;
 	long startTime = System.nanoTime();
 	long currentTime = startTime;
 	double elapsed;
