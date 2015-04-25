@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 
 public class Player extends Fighter {
 	
-	double speed = 3;//in pixels per update
+	double speed = 2;//in pixels per update
 	Point velocity;
 	
 	AnimationSet idles;
