@@ -11,6 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JFrame;
 
+import state.CreditsState;
 import state.MenuState;
 import state.PlayState;
 import state.State;
@@ -41,8 +42,8 @@ public class Game extends Canvas implements Runnable{
 	public HUD hud = new HUD();
 	public MenuState menuState = new MenuState(this);
 	public PlayState playState = new PlayState(this);
-
-	public State state = menuState;
+	public CreditsState creditsState = new CreditsState(this);
+	public State state = creditsState;
 	
 	public static void main(String[] args) {
 		Game game = new Game();
