@@ -21,6 +21,10 @@ public class Point {
 		return new Point(x + v.x, y + v.y);
 	}
 
+	public Point subtract(Point v) {
+		return new Point(x - v.x, y - v.y);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -50,5 +54,12 @@ public class Point {
 	@Override
 	public String toString() {
 		return String.format("[%s, %s]",x,y);
+	}
+	public Point normalized() {
+		return new Point(x / magnitude(),y / magnitude());
+	}
+	
+	public double magnitude(){
+		return Math.sqrt(x * x + y * y);
 	}
 }

@@ -12,6 +12,11 @@ import entities.Enemy;
 import finalProject.Game;
 
 public class HUD extends Component{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2378444046339263101L;
+
 	public void render(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		Image img1 = Toolkit.getDefaultToolkit().getImage("src/images/empty_HUD.png");
@@ -24,8 +29,6 @@ public class HUD extends Component{
 		g2d.setColor(Color.WHITE);
 		g2d.setFont(new Font("arial", Font.BOLD, 14));
 		g2d.drawString(Integer.toString(Enemy.enemies), 188, 796);
-		
-		System.out.println();
 		//g2d.finalize();
 	}
 }

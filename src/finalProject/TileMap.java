@@ -27,9 +27,9 @@ public class TileMap {
 		
 		this.tileSize = tileSize;
 		
-		try {
+		try(BufferedReader br = new BufferedReader(new FileReader(s))) {
 			
-			BufferedReader br = new BufferedReader(new FileReader(s));
+			
 			
 			mapWidth = Integer.parseInt(br.readLine());
 			mapHeight = Integer.parseInt(br.readLine());

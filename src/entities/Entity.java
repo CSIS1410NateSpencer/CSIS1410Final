@@ -2,11 +2,8 @@ package entities;
 
 import finalProject.Game;
 import finalProject.Point;
-import graphics.Sprite;
-
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 public abstract class Entity implements Comparable<Entity>{
 	public Point position = new Point();

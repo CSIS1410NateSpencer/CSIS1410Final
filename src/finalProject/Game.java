@@ -1,26 +1,27 @@
 package finalProject;
 
-import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
+import audio.AudioPlayer;
 import entities.Enemy;
 import entities.Entity;
 import entities.Player;
 import graphics.HUD;
 
 public class Game extends Canvas implements Runnable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8294422427114133940L;
 	JFrame frame;
 	BufferStrategy bs;
 	Graphics g;
@@ -30,6 +31,8 @@ public class Game extends Canvas implements Runnable{
 	private static List<Entity> entities = new CopyOnWriteArrayList<>();
 	public static Player player;
 	public static Point cameraPosition = new Point(0,0);
+	
+	public static AudioPlayer audio = new AudioPlayer();
 	HUD hud = new HUD();
 	Menu menu = new Menu();
 	public static enum STATE {
@@ -63,7 +66,7 @@ public class Game extends Canvas implements Runnable{
 		tileMap.loadTiles("src/images/dungeon.png");
 	}
 	private void setupEntities() {
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 6; i++) {
 			new Enemy();
 		}
 		player = new Player();
@@ -148,8 +151,6 @@ public class Game extends Canvas implements Runnable{
 		for (Entity entity : entities) {
 			entity.draw(g);
 		}
-		g.setColor(Color.BLACK);
-		g.drawString("Health: " + player.getHealth(), 0, 17);
 		}
 		//display the final product on the screen
 		bs.show();

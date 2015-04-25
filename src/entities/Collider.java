@@ -5,7 +5,7 @@ import finalProject.Point;
 public class Collider {
 	
 	Entity attachedTo;
-	Point position = Point.zero();
+	Point offset = Point.zero();
 	int width;
 	int height;
 	
@@ -19,19 +19,22 @@ public class Collider {
 	}
 	public Collider(Entity attachedTo, int x, int y,int width, int height) {
 		this.attachedTo = attachedTo;
-		position.x = x;
-		position.y = y;
+		offset.x = x;
+		offset.y = y;
 		this.width = width;
 		this.height = height;
 	}
 	
 	//checks for intersection between entities
 	public static boolean intersects(Collider a, Collider b) {
-		if (a.position.x + a.attachedTo.position.x + a.width < b.position.x + b.attachedTo.position.x
-				|| a.position.y + a.attachedTo.position.y + a.height < b.position.y + b.attachedTo.position.y
-				|| b.position.x + b.attachedTo.position.x + b.width < a.position.x + a.attachedTo.position.x
-				|| b.position.y + b.attachedTo.position.y + b.height < a.position.y + a.attachedTo.position.y)
+		if (a.offset.x + a.attachedTo.position.x + a.width < b.offset.x + b.attachedTo.position.x
+				|| a.offset.y + a.attachedTo.position.y + a.height < b.offset.y + b.attachedTo.position.y
+				|| b.offset.x + b.attachedTo.position.x + b.width < a.offset.x + a.attachedTo.position.x
+				|| b.offset.y + b.attachedTo.position.y + b.height < a.offset.y + a.attachedTo.position.y)
 			return false;
 		return true;
+	}
+	public Point center() {
+		return new Point(attachedTo.position.x + offset.x + (width / 2), attachedTo.position.y + offset.y + (height / 2));
 	}
 }

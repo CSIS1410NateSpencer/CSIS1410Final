@@ -1,7 +1,7 @@
 package entities;
 
 import finalProject.Direction;
-import graphics.Animation;
+import finalProject.Game;
 import graphics.AnimationSet;
 
 import java.util.Random;
@@ -32,8 +32,8 @@ public class Enemy extends Fighter {
 		 enemies++;
 	}
 	public void setPosition(){
-		position.x = rand.nextInt(600) + 2400;
-		position.y = rand.nextInt(1600) + 500;
+		position.x = rand.nextInt(1000) + 1300;
+		position.y = rand.nextInt(1000) + 1700;
 	}
 	public void setPosition(double x,double y){
 		position.x = x;
@@ -42,7 +42,8 @@ public class Enemy extends Fighter {
 	
 	@Override
 	public void move() {
-		position.x += getDirection().getSign(speed);
+		velocity = direction.getPoint().multiply(speed);
+		adjustForCollision();
 		if(rand.nextInt(1000) == 999)
 			if(getDirection() == Direction.Right)
 				setDirection(Direction.Left);
@@ -67,7 +68,7 @@ public class Enemy extends Fighter {
 			
 			destroy();
 		}
-		
+		attack.position = position;
 	}
 
 	@Override
@@ -79,4 +80,9 @@ public class Enemy extends Fighter {
 		
 	}
 
+	@Override
+	void takeDamage(int amount) {
+		super.takeDamage(amount);
+		Game.audio.play("src/audio/applause.wav");
+	}
 }
