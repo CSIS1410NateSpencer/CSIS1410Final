@@ -6,7 +6,7 @@ import maths.Point;
 public class Attack extends Entity{
 
 	Entity sender;
-	double timeRemaining = 50;
+	double timeRemaining = 25;
 	boolean temporary = true;
 	
 	public Attack(Entity sender, Point point, int width, int height){

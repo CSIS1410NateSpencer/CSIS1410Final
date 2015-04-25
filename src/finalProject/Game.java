@@ -11,6 +11,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JFrame;
 
+import state.MenuState;
+import state.PlayState;
+import state.State;
 import maths.Maths;
 import maths.Point;
 import audio.AudioPlayer;
@@ -30,18 +33,16 @@ public class Game extends Canvas implements Runnable{
 	public static Input input = new Input();
 	
 	public static TileMap tileMap;
-	private static List<Entity> entities = new CopyOnWriteArrayList<>();
+	public static List<Entity> entities = new CopyOnWriteArrayList<>();
 	public static Player player;
 	public static Point cameraPosition = new Point(0,0);
 	
 	public static AudioPlayer audio = new AudioPlayer();
-	HUD hud = new HUD();
-	Menu menu = new Menu();
-	public static enum STATE {
-		MENU, GAME
-	};
+	public HUD hud = new HUD();
+	public MenuState menuState = new MenuState(this);
+	public PlayState playState = new PlayState(this);
 
-	public static STATE State = STATE.MENU;
+	public State state = menuState;
 	
 	public static void main(String[] args) {
 		Game game = new Game();
@@ -59,7 +60,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private void setupInput() {
 		addKeyListener(input);
-		addMouseListener(new MouseInput());
+		addMouseListener(menuState);
 		setFocusable(true);
 		requestFocus();
 	}
@@ -93,38 +94,18 @@ public class Game extends Canvas implements Runnable{
 		Clock clock = new Clock();
 		double desiredFPS = 60;
 		double delay = Clock.NANOS_PER_SECOND / desiredFPS;
-		while(true) {
+		while (true) {
 			clock.tick();
-			if(clock.getElapsed() >= delay){
-					update();
-					render();
-					clock.reset();
-			}
+			if (clock.getElapsed() >= delay) {
+				update();
+				render();
+				clock.reset();
 			}
 		}
+	}
 	
 	private void update() {
-	if(State == STATE.MENU){
-		
-	}
-		else if(State == STATE.GAME){
-		
-		//update entity state
-		for (Entity entity : entities) {
-			entity.update();	
-		}
-		//check for intersection between entities
-		for (int x = 0; x < entities.size(); x++) {
-			for (int y = x; y < entities.size(); y++) {
-				if(x!=y)
-					Entity.checkCollision(entities.get(x),entities.get(y));
-			}
-		}
-		positionCamera();
-		
-		//sort entities by y position
-		Collections.sort(entities);
-		}
+		state.update();
 	}
 
 	private void render() {
@@ -140,19 +121,7 @@ public class Game extends Canvas implements Runnable{
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
-		if (State == STATE.MENU) {
-			// what menu looks like
-			menu.render(g);
-		} else if (State == STATE.GAME) {
-			// draw the level
-			tileMap.draw(g);
-			hud.render(g);
-
-			// draw objects in the level;
-			for (Entity entity : entities) {
-				entity.draw(g);
-			}
-		}
+		state.render(g);
 		// display the final product on the screen
 		bs.show();
 
@@ -162,7 +131,7 @@ public class Game extends Canvas implements Runnable{
 	
 	
 	
-	private void positionCamera() {
+	public void positionCamera() {
 		cameraPosition.x = Maths.interpolate(cameraPosition.x, player.position.x - getWidth() / 2 + player.getSprite().getWidth() / 2,.05);
 		cameraPosition.y = Maths.interpolate(cameraPosition.y, player.position.y - getHeight() / 2 + player.getSprite().getHeight() / 2,.05);
 		cameraPosition.x = Maths.clamp(cameraPosition.x,0,tileMap.getTotalMapWidth() - getWidth());

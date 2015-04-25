@@ -11,7 +11,7 @@ import maths.Point;
 
 public class Player extends Fighter {
 	
-	double speed = 2;//in pixels per update
+	double speed = 12;//in pixels per update
 	
 	AnimationSet idles;
 	private Animation praise = new Animation("src/images/praise_the_sun.png",10);
@@ -61,7 +61,7 @@ public class Player extends Fighter {
 		
 		if(getCurrentAnimationSet().get(direction).isFinished() == true) {
 			if(getCurrentAnimationSet() == attacks)
-				new Attack(this, position.add(direction.getPoint().multiply(100)),collider.width,collider.height);
+				new Attack(this, position.add(direction.getPoint().multiply(75)),75,75);
 			if(getCurrentAnimationSet() == die)
 				respawn();
 			setCurrentAnimationSet(idles);
@@ -75,6 +75,8 @@ public class Player extends Fighter {
 		}
 		if(Enemy.enemies == 0)
 			sprite = praise.currentSprite();
+		
+		
 	}
 
 	private void respawn() {

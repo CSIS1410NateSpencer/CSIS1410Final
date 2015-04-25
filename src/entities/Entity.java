@@ -27,8 +27,8 @@ public abstract class Entity implements Comparable<Entity>{
 		int ty = Game.tileMap.gety();
 		if(sprite != null) {
 			g.drawImage(sprite, (int)(tx + position.x - sprite.getWidth() / 2), (int)(ty + position.y - sprite.getHeight() / 2),null);
-			g.drawRect((int)(tx + collider.getPosition().x - collider.width / 2), (int)(ty + collider.getPosition().y - collider.height / 2),(int)collider.width, (int)collider.height);
 		}
+		g.drawRect((int)(tx + collider.getPosition().x - collider.width / 2), (int)(ty + collider.getPosition().y - collider.height / 2),(int)collider.width, (int)collider.height);
 	}
 
 	public static void checkCollision(Entity a, Entity b) {

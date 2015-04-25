@@ -27,10 +27,12 @@ public class Collider {
 	
 	//checks for intersection between entities
 	public static boolean intersects(Collider a, Collider b) {
-		if (a.offset.x + a.attachedTo.position.x + a.width < b.offset.x + b.attachedTo.position.x
-				|| a.offset.y + a.attachedTo.position.y + a.height < b.offset.y + b.attachedTo.position.y
-				|| b.offset.x + b.attachedTo.position.x + b.width < a.offset.x + a.attachedTo.position.x
-				|| b.offset.y + b.attachedTo.position.y + b.height < a.offset.y + a.attachedTo.position.y)
+		Point aPos = a.getPosition();
+		Point bPos = b.getPosition();
+		if (aPos.x + a.width < bPos.x
+				|| aPos.y + a.height < bPos.y
+				|| bPos.x + b.width < aPos.x
+				|| bPos.y + b.height < aPos.y)
 			return false;
 		return true;
 	}

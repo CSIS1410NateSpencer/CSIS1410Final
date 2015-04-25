@@ -18,8 +18,14 @@ public class Animation {
 		startTime = System.currentTimeMillis();
 		
 	}
+	public Animation(BufferedImage[] sprites){
+		this.sprites = new BufferedImage[sprites.length];
+		for (int i = 0; i < sprites.length; i++) {
+			this.sprites[i] = sprites[i];
+		}
+	}
 	
-	private static BufferedImage[] load(String path, int numberOfSprites){
+	public static BufferedImage[] load(String path, int numberOfSprites){
 		ArrayList<BufferedImage> sprites = new ArrayList<>();
 		
 		for (int x = 0; x < numberOfSprites; x++) {
@@ -38,18 +44,20 @@ public class Animation {
 
 	public BufferedImage currentSprite() {
 		double elapsedMilliseconds = (System.currentTimeMillis() - startTime);
-				currentIndex = (int)((elapsedMilliseconds / delay) % sprites.length);
-				if (currentIndex == sprites.length - 1 && !looping)
-					finished = true;
-				return sprites[currentIndex];
-//		if (!finished) {
-//			double elapsedMilliseconds = (System.currentTimeMillis() - startTime);
-//			currentIndex = (int) ((elapsedMilliseconds / delay) % sprites.length);
-//			if (currentIndex == sprites.length - 1 && !looping)
-//				finished = true;
-//			return sprites[currentIndex];
-//		}
-//		else return sprites[sprites.length - 1];
+		currentIndex = (int) ((elapsedMilliseconds / delay) % sprites.length);
+		if (currentIndex == sprites.length - 1 && !looping)
+			finished = true;
+		return sprites[currentIndex];
+		// if (!finished) {
+		// double elapsedMilliseconds = (System.currentTimeMillis() -
+		// startTime);
+		// currentIndex = (int) ((elapsedMilliseconds / delay) %
+		// sprites.length);
+		// if (currentIndex == sprites.length - 1 && !looping)
+		// finished = true;
+		// return sprites[currentIndex];
+		// }
+		// else return sprites[sprites.length - 1];
 	}
 	
 	private boolean finished = false;
