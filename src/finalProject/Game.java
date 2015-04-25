@@ -29,6 +29,12 @@ public class Game extends Canvas implements Runnable{
 	private static List<Entity> entities = new CopyOnWriteArrayList<>();
 	Player player;
 	public static Point cameraPosition = new Point(0,0);
+	Menu menu = new Menu();
+	public static enum STATE {
+		MENU, GAME
+	};
+
+	public static STATE State = STATE.MENU;
 	
 	public static void main(String[] args) {
 		Game game = new Game();
@@ -46,19 +52,19 @@ public class Game extends Canvas implements Runnable{
 	
 	private void setupInput() {
 		addKeyListener(input);
+		addMouseListener(new MouseInput());
 		setFocusable(true);
 		requestFocus();
 	}
 	private void setupMap() {
-		tileMap = new TileMap("src/LVL1.txt", 96);
-		tileMap.loadTiles("src/images/LVL1.png");
+		tileMap = new TileMap("src/dungeon.txt", 96);
+		tileMap.loadTiles("src/images/dungeon.png");
 	}
 	private void setupEntities() {
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 35; i++) {
 			new Enemy();
 		}
 		player = new Player();
-		player.position = new Point(800,600);
 	}
 	private void ensureSize(Dimension size) {
 		setMinimumSize(size);
@@ -66,7 +72,7 @@ public class Game extends Canvas implements Runnable{
 		setMaximumSize(size);
 	}
 	private void setupWindow() {
-		ensureSize(new Dimension(640,480));
+		ensureSize(new Dimension(1000,800));
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(this);
@@ -83,15 +89,18 @@ public class Game extends Canvas implements Runnable{
 		while(true) {
 			clock.tick();
 			if(clock.getElapsed() >= delay){
-				update();
-				render();
-				clock.reset();
+					update();
+					render();
+					clock.reset();
+			}
 			}
 		}
-	}
 	
 	private void update() {
+	if(State == STATE.MENU){
 		
+	}
+		else if(State == STATE.GAME){
 		
 		//update entity state
 		for (Entity entity : entities) {
@@ -108,8 +117,10 @@ public class Game extends Canvas implements Runnable{
 		
 		//sort entities by y position
 		Collections.sort(entities);
+		}
 	}
 	private void render() {
+		
 		bs = getBufferStrategy();
 		if(bs == null){
 			createBufferStrategy(3);
@@ -122,6 +133,11 @@ public class Game extends Canvas implements Runnable{
 		//g.setColor(new Color(0.0f,0.0f,0.0f,0.1f));
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
+		if (State == STATE.MENU) {
+			// what menu looks like
+				menu.render(g);
+		}
+		else if (State == STATE.GAME){
 		//draw the level
 		tileMap.draw(g);
 		
@@ -131,6 +147,7 @@ public class Game extends Canvas implements Runnable{
 		}
 		g.setColor(Color.BLACK);
 		g.drawString("Health: " + player.getHealth(), 0, 17);
+		}
 		//display the final product on the screen
 		bs.show();
 		

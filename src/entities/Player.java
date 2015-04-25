@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 
 public class Player extends Fighter {
 	
-	double speed = 2;//in pixels per update
+	double speed = 3;//in pixels per update
 	Point velocity;
 	
 	AnimationSet idles;
@@ -23,7 +23,7 @@ public class Player extends Fighter {
 	
 	private Direction direction = Direction.Right;
 	
-	
+	Point startingPoint = new Point(2400,600);
 	public Player(){
 		initializeHealth(9);
 		
@@ -37,6 +37,7 @@ public class Player extends Fighter {
 		sprite = getCurrentAnimationSet().get(direction).currentSprite();
 		collider.width = sprite.getWidth();
 		collider.height = sprite.getHeight();
+		position = new Point(startingPoint.x,startingPoint.y);
 	}
 	
 	@Override
@@ -85,7 +86,7 @@ public class Player extends Fighter {
 	}
 
 	private void respawn() {
-		position = new Point(800,800);
+		position = startingPoint;
 		setHealth(starterHealth);
 		alive = true;
 	}

@@ -16,11 +16,12 @@ public class Enemy extends Fighter {
 	
 	public Enemy(){
 		setDirection(Direction.Left);
+		//setPosition(500-2100,2400-3000);
 		setPosition();
 		initializeHealth(5);
 		walks = AnimationSet.loadAnimations("walk_zombie", 11);
 		damage = AnimationSet.loadAnimations("damaged", 4);
-		die = AnimationSet.loadAnimations("die", 14);
+		die = AnimationSet.loadAnimations("die_enemy", 11);
 		setCurrentAnimationSet(walks);
 		sprite = getCurrentAnimationSet().get(getDirection()).currentSprite();
 		collider.width = sprite.getWidth();
@@ -31,8 +32,8 @@ public class Enemy extends Fighter {
 		 enemies++;
 	}
 	public void setPosition(){
-		position.x = rand.nextInt(150) + 800;
-		position.y = rand.nextInt(500) + 300;
+		position.x = rand.nextInt(600) + 2400;
+		position.y = rand.nextInt(1600) + 500;
 	}
 	public void setPosition(double x,double y){
 		position.x = x;
