@@ -1,8 +1,8 @@
 package entities;
 
+import maths.Point;
 import finalProject.Direction;
 import finalProject.Game;
-import finalProject.Point;
 import graphics.AnimationSet;
 
 
@@ -52,7 +52,7 @@ public abstract class Fighter extends Entity {
 				&& other instanceof Attack 
 				&& ((Attack)other).sender.getClass() != this.getClass() 
 				&& getCurrentAnimationSet() != damage){
-			Point difference = other.collider.center().subtract(collider.center());
+			Point difference = other.collider.getCenter().subtract(collider.getCenter());
 			position = position.subtract(difference.normalized().multiply(10));
 			takeDamage(1);
 		}
@@ -99,7 +99,7 @@ public abstract class Fighter extends Entity {
 		bottomRight = Game.tileMap.isBlocked(bottomTile, rightTile);
 	}
 	
-	protected void adjustForCollision() {
+	protected void moveAdjustingForTileCollision() {
 		int currCol = Game.tileMap.getColTile((int) position.x);
 		int currRow = Game.tileMap.getRowTile((int) position.y);
 

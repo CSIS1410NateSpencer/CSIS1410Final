@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import maths.Point;
+
 public class Input extends KeyAdapter{
 	public static List<Integer> pressedKeys = new ArrayList<>();
 	

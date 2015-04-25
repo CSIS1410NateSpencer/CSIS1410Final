@@ -1,4 +1,4 @@
-package finalProject;
+package maths;
 
 public class Point {
 	public double x;

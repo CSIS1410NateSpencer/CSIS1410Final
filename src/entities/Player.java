@@ -2,11 +2,12 @@ package entities;
 
 import finalProject.Direction;
 import finalProject.Game;
-import finalProject.Point;
 import graphics.Animation;
 import graphics.AnimationSet;
 
 import java.awt.event.KeyEvent;
+
+import maths.Point;
 
 public class Player extends Fighter {
 	
@@ -43,7 +44,7 @@ public class Player extends Fighter {
 		else
 			setCurrentAnimationSet(idles);
 
-		adjustForCollision();
+		moveAdjustingForTileCollision();
 	}
 
 	

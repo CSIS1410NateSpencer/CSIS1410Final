@@ -43,7 +43,7 @@ public class Enemy extends Fighter {
 	@Override
 	public void move() {
 		velocity = direction.getPoint().multiply(speed);
-		adjustForCollision();
+		moveAdjustingForTileCollision();
 		if(rand.nextInt(1000) == 999)
 			if(getDirection() == Direction.Right)
 				setDirection(Direction.Left);
@@ -83,6 +83,6 @@ public class Enemy extends Fighter {
 	@Override
 	void takeDamage(int amount) {
 		super.takeDamage(amount);
-		Game.audio.play("src/audio/applause.wav");
+		//Game.audio.play("src/audio/applause.wav");
 	}
 }

@@ -11,6 +11,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JFrame;
 
+import maths.Maths;
+import maths.Point;
 import audio.AudioPlayer;
 import entities.Enemy;
 import entities.Entity;
@@ -124,60 +126,49 @@ public class Game extends Canvas implements Runnable{
 		Collections.sort(entities);
 		}
 	}
+
 	private void render() {
-		
+
 		bs = getBufferStrategy();
-		if(bs == null){
+		if (bs == null) {
 			createBufferStrategy(3);
 			return;
 		}
 		g = bs.getDrawGraphics();
-		
-		//clear the screen
-		g.setColor(new Color(0.35f, 0.20f, 0.0f, 1.0f));
-		//g.setColor(new Color(0.0f,0.0f,0.0f,0.1f));
+
+		// clear the screen
+		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		
+
 		if (State == STATE.MENU) {
 			// what menu looks like
-				menu.render(g);
+			menu.render(g);
+		} else if (State == STATE.GAME) {
+			// draw the level
+			tileMap.draw(g);
+			hud.render(g);
+
+			// draw objects in the level;
+			for (Entity entity : entities) {
+				entity.draw(g);
+			}
 		}
-		else if (State == STATE.GAME){
-		//draw the level
-		tileMap.draw(g);
-		hud.render(g);
-		
-		//draw objects in the level;
-		for (Entity entity : entities) {
-			entity.draw(g);
-		}
-		}
-		//display the final product on the screen
+		// display the final product on the screen
 		bs.show();
-		
-		//clean up after yourself
+
+		// clean up after yourself
 		g.dispose();
 	}
 	
 	
-	private double interpolate(double a, double b, double t){
-		return a + (b-a) * t;
-	}
+	
 	private void positionCamera() {
-		cameraPosition.x = interpolate(cameraPosition.x, player.position.x - getWidth() / 2 + player.getSprite().getWidth() / 2,.05);
-		cameraPosition.y = interpolate(cameraPosition.y, player.position.y - getHeight() / 2 + player.getSprite().getHeight() / 2,.05);
-		cameraPosition.x = clamp(cameraPosition.x,0,tileMap.getTotalMapWidth() - getWidth());
-		cameraPosition.y = clamp(cameraPosition.y,0,tileMap.getTotalMapHeight() - getHeight());
+		cameraPosition.x = Maths.interpolate(cameraPosition.x, player.position.x - getWidth() / 2 + player.getSprite().getWidth() / 2,.05);
+		cameraPosition.y = Maths.interpolate(cameraPosition.y, player.position.y - getHeight() / 2 + player.getSprite().getHeight() / 2,.05);
+		cameraPosition.x = Maths.clamp(cameraPosition.x,0,tileMap.getTotalMapWidth() - getWidth());
+		cameraPosition.y = Maths.clamp(cameraPosition.y,0,tileMap.getTotalMapHeight() - getHeight());
 		tileMap.setx((int)-cameraPosition.x);
 		tileMap.sety((int)-cameraPosition.y);
-	}
-	
-	double clamp(double base, double lower, double upper){
-		if(base < lower)
-			return lower;
-		if(base > upper)
-			return upper;
-		return base;
 	}
 	
 	public static void remove(Entity e) {

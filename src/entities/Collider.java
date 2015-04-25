@@ -1,6 +1,6 @@
 package entities;
 
-import finalProject.Point;
+import maths.Point;
 
 public class Collider {
 	
@@ -34,7 +34,11 @@ public class Collider {
 			return false;
 		return true;
 	}
-	public Point center() {
+	
+	public Point getPosition() {
+		return new Point(attachedTo.position.x + offset.x, attachedTo.position.y + offset.y);
+	}
+	public Point getCenter() {
 		return new Point(attachedTo.position.x + offset.x + (width / 2), attachedTo.position.y + offset.y + (height / 2));
 	}
 }

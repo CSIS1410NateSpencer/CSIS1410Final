@@ -1,6 +1,6 @@
 package entities;
 
-import finalProject.Point;
+import maths.Point;
 
 
 public class Attack extends Entity{

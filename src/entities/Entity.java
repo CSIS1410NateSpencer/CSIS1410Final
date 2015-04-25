@@ -1,9 +1,11 @@
 package entities;
 
 import finalProject.Game;
-import finalProject.Point;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+
+import maths.Point;
 
 public abstract class Entity implements Comparable<Entity>{
 	public Point position = new Point();
@@ -25,8 +27,8 @@ public abstract class Entity implements Comparable<Entity>{
 		int ty = Game.tileMap.gety();
 		if(sprite != null) {
 			g.drawImage(sprite, (int)(tx + position.x - sprite.getWidth() / 2), (int)(ty + position.y - sprite.getHeight() / 2),null);
+			g.drawRect((int)(tx + collider.getPosition().x - collider.width / 2), (int)(ty + collider.getPosition().y - collider.height / 2),(int)collider.width, (int)collider.height);
 		}
-		//g.drawRect((int)(position.x - Game.cameraPosition.x), (int)(position.y - Game.cameraPosition.y),(int)collider.width, (int)collider.height);
 	}
 
 	public static void checkCollision(Entity a, Entity b) {

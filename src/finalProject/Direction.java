@@ -1,5 +1,7 @@
 package finalProject;
 
+import maths.Point;
+
 public enum Direction {
 	Up,Down,Left,Right;
 	
