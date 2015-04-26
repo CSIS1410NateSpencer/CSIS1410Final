@@ -22,15 +22,21 @@ public class PlayState extends State {
 	public static TileMap tileMap;
 	public static List<Entity> entities = new CopyOnWriteArrayList<>();
 	public static Player player;
-	public static Point cameraPosition = new Point(0,0);
+	public static Point cameraPosition = Point.zero();
 	public HUD hud = new HUD();
+	private Comparator<Entity> compareByDistanceToPlayer = new CompareByDistanceToTarget(player);
 	
 	public PlayState(Game game) {
 		super(game);
 		setupMap();
-		setupEntities();
 	}
 
+	@Override
+	public void begin() {
+		setupEntities();
+		cameraPosition = Point.zero();
+	}
+	
 	@Override
 	public void update() {
 		if(!Game.audio.isPlaying())
@@ -39,7 +45,7 @@ public class PlayState extends State {
 			entity.update();
 		}
 		
-		entities.sort(new CompareByDistanceToTarget(player));
+		entities.sort(compareByDistanceToPlayer);
 		
 		// check for intersection between entities
 		for (int x = 0; x < entities.size(); x++) {
@@ -74,10 +80,12 @@ public class PlayState extends State {
 		tileMap.loadTiles("src/images/dungeon.png");
 	}
 	private void setupEntities() {
-		for (int i = 0; i < 10; i++) {
+		entities.clear();
+		for (int i = 0; i < 15; i++) {
 			new Enemy();
 		}
 		player = new Player();
+		compareByDistanceToPlayer = new CompareByDistanceToTarget(player);
 	}
 	public void positionCamera() {
 		cameraPosition.x = Maths.interpolate(cameraPosition.x, player.position.x - game.getWidth() / 2 + player.getSprite().getWidth() / 2,.05);

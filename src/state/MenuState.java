@@ -24,13 +24,20 @@ public class MenuState extends State implements MouseListener{
 		g.finalize();
 	}
 
+	
+	@Override
+	public void begin() {
+		exit = false;
+		next = false;
+	}
+	
 	@Override
 	public
 	void update() {
 		if(exit)
 			System.exit(1);
 		if(next)
-			game.state = game.playState;
+			Game.manager.next();
 	}
 	
 	@Override
@@ -69,4 +76,6 @@ public class MenuState extends State implements MouseListener{
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 	}
+
+	
 }

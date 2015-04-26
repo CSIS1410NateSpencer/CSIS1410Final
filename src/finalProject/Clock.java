@@ -13,6 +13,7 @@ public class Clock {
 	
 	public void reset(){
 		startTime = System.nanoTime();
+		tick();
 	}
 	public double getElapsed() {
 		return elapsed;

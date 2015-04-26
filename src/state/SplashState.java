@@ -30,19 +30,22 @@ public class SplashState extends State {
 	}
 
 	@Override
+	public void begin() {
+		clock.reset();
+		Game.audio.stopAll();
+		opacity = 1;
+		Game.audio.play("splash_music.wav");
+	}
+	
+	@Override
 	public void update() {
-		if(!Game.audio.isPlaying()) {
-			Game.audio.play("splash_music.wav");
-			clock.reset();
-		}
 		opacity = Maths.interpolate(1, 0, clock.getElapsedAsSeconds() / 3);
 		opacity = Maths.clamp(opacity, 0, 1);
 		clock.tick();
 		if(clock.getElapsedAsSeconds() > 7.5)
-			game.state = game.menuState;
-		
-		if(Game.input.isPressed(KeyEvent.VK_SPACE)){
-			game.state = game.menuState;
+			Game.manager.next();
+		else if(clock.getElapsedAsSeconds() > 1.0 && Game.input.isPressed(KeyEvent.VK_SPACE)){
+			Game.manager.next();
 			Game.audio.stopAll();
 		}
 	}

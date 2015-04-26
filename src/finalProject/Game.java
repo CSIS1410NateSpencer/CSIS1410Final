@@ -16,6 +16,7 @@ import state.MenuState;
 import state.PlayState;
 import state.SplashState;
 import state.State;
+import state.StateManager;
 import maths.Maths;
 import maths.Point;
 import audio.AudioPlayer;
@@ -34,12 +35,11 @@ public class Game extends Canvas implements Runnable{
 	Graphics g;
 	public static Input input = new Input();
 	
-	//StateManager manager = new StateManager();
+	public static StateManager manager = new StateManager();
 	public SplashState splashState = new SplashState(this);
 	public MenuState menuState = new MenuState(this);
 	public PlayState playState = new PlayState(this);
 	public CreditsState creditsState = new CreditsState(this);
-	public State state = splashState;
 	public static AudioPlayer audio = new AudioPlayer();
 	private static Game game;
 	
@@ -56,9 +56,11 @@ public class Game extends Canvas implements Runnable{
 	private Game(){
 		setupInput();
 		setupWindow();
-		
+		setupStates();
 		frame.setVisible(true);
 	}
+
+	
 	private void setupInput() {
 		addKeyListener(input);
 		addMouseListener(menuState);
@@ -81,12 +83,19 @@ public class Game extends Canvas implements Runnable{
 		frame.setLocationRelativeTo(null);
 	}
 	
+	private void setupStates() {
+		manager.add(splashState);
+		manager.add(menuState);
+		manager.add(playState);
+		manager.add(creditsState);
+	}
 	@Override
 	public void run() {
 		Clock clock = new Clock();
 		double desiredFPS = 60;
 		double delay = Clock.NANOS_PER_SECOND / desiredFPS;
 		
+		manager.begin();
 		while (true) {
 			clock.tick();
 			if (clock.getElapsed() >= delay) {
@@ -98,7 +107,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	private void update() {
-		state.update();
+		manager.getCurrent().update();
 	}
 
 	private void render() {
@@ -114,7 +123,7 @@ public class Game extends Canvas implements Runnable{
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
-		state.render(g);
+		manager.getCurrent().render(g);
 		// display the final product on the screen
 		bs.show();
 

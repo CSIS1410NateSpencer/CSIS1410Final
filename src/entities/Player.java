@@ -53,6 +53,7 @@ public class Player extends Fighter {
 	public void attack() {
 			setCurrentAnimationSet(attacks);
 			attacks.get(direction).play();
+			Game.audio.play("player_swing_sword.wav");
 	}
 
 	@Override
@@ -77,7 +78,7 @@ public class Player extends Fighter {
 			sprite = praise.currentSprite();
 			if(praise.isFinished()) {
 				System.out.println("YIPPEE!");
-				Game.getInstance().state = Game.getInstance().creditsState;
+				Game.manager.next();
 			}
 		}
 		

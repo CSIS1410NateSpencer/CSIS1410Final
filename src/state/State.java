@@ -10,6 +10,8 @@ public abstract class State {
 	public State(Game game) {
 		this.game = game;
 	}
+	
+	public abstract void begin();
 	public abstract void update();
 	public abstract void render(Graphics g);
 }

@@ -2,34 +2,70 @@ package state;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 
 import finalProject.Game;
 
 public class CreditsState extends State{
 
-	double y = 900;
+	int starterYOffset = 900;
+	int yOffset = starterYOffset;
+	int minYOffset = -450;
 	String[] credits = {
-			"                                                                                                                                                                          Credits                         ",
+			"                                                                                                                                                              Credits                         ",
 			"Spriter: Nate Ivy",
 			"Coder: Nate Ivy",
-			"Coder: Spencer Isaacson"
+			"Coder: Spencer Isaacson",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"                                                                                                                                                            THE END",
 			};
 	public CreditsState(Game game) {
 		super(game);
 	}
 
 	@Override
+	public void begin() {
+		yOffset = starterYOffset;
+		
+	}
+	@Override
 	public void update() {
-		y-= 1;	
+		if(yOffset > minYOffset)
+			yOffset--;
+		else if (Game.input.isPressed(KeyEvent.VK_SPACE)){
+			Game.manager.next();
+		}
 	}
 
 	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.WHITE);
 		for (int i = 0; i < credits.length; i++) {
-			g.drawString(credits[i], 0, i * 32 + (int)y);
+			g.drawString(credits[i], 25, i * 32 + (int)yOffset);
 		}
 		
+		if(yOffset <= minYOffset)
+			g.drawString("Press the spacebar to restart", 440, 430);
 	}
-
 }
