@@ -64,6 +64,7 @@ public class Game extends Canvas implements Runnable{
 	private void setupInput() {
 		addKeyListener(input);
 		addMouseListener(menuState);
+		addMouseMotionListener(menuState);
 		setFocusable(true);
 		requestFocus();
 	}
