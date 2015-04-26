@@ -13,7 +13,6 @@ public class CreditsState extends State{
 	int minYOffset = -450;
 	String[] credits = {
 			"                                                                                                                                                              Credits                         ",
-			"",
 			"Main character sprites: Nate Ivy",
 			"Programmer: Nate Ivy",
 			"Programmer: Spencer Isaacson",
