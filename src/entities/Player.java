@@ -4,7 +4,6 @@ import finalProject.Direction;
 import finalProject.Game;
 import graphics.Animation;
 import graphics.AnimationSet;
-import state.PlayState;
 
 import java.awt.event.KeyEvent;
 
@@ -12,10 +11,10 @@ import maths.Point;
 
 public class Player extends Fighter {
 	
-	double speed = 5;//in pixels per update
+	double speed = 2;//in pixels per update
 	
 	AnimationSet idles;
-	private Animation praise = new Animation("src/images/praise_the_sun.png",10);
+	private Animation praise = new Animation("src/images/player/praise_the_sun.png",10);
 	
 	
 	Point startingPoint = new Point(2175,360);
@@ -23,11 +22,11 @@ public class Player extends Fighter {
 		initializeHealth(16);
 		
 		direction = Direction.Down;
-		walks = AnimationSet.loadAnimations("walking",8);
-		idles = AnimationSet.loadAnimations("idle",8);
-		attacks = AnimationSet.loadAnimations("attack",9);
-		damage = AnimationSet.loadAnimations("dmg",4);
-		die = AnimationSet.loadAnimations("die",14);
+		walks = AnimationSet.loadAnimations("player/walking",8);
+		idles = AnimationSet.loadAnimations("player/idle",8);
+		attacks = AnimationSet.loadAnimations("player/attack",9);
+		damage = AnimationSet.loadAnimations("player/dmg",4);
+		die = AnimationSet.loadAnimations("player/die",14);
 		setCurrentAnimationSet(idles);
 		sprite = getCurrentAnimationSet().get(direction).currentSprite();
 		collider.width = sprite.getWidth();
@@ -62,7 +61,7 @@ public class Player extends Fighter {
 		
 		if(getCurrentAnimationSet().get(direction).isFinished() == true) {
 			if(getCurrentAnimationSet() == attacks)
-				new Attack(this, position.add(direction.getPoint().multiply(75)),75,75);
+				createAttackEntity(75,95,85);
 			if(getCurrentAnimationSet() == die)
 				respawn();
 			setCurrentAnimationSet(idles);
@@ -74,10 +73,29 @@ public class Player extends Fighter {
 			else
 				move();
 		}
-		if(Enemy.enemies == 0)
+		if(Enemy.enemies == 0) {
 			sprite = praise.currentSprite();
+			if(praise.isFinished()) {
+				System.out.println("YIPPEE!");
+				Game.getInstance().state = Game.getInstance().creditsState;
+			}
+		}
 		
 		
+	}
+
+	protected void createAttackEntity(int distanceOut, int wide, int tall) {
+		Point directionPoint = direction.getPoint();
+		Point attackPosition = position.add(directionPoint.multiply(distanceOut));
+		attackPosition.x += collider.width / 2;
+		attackPosition.y += collider.height / 2;
+		
+		int width = (int)(Math.abs(directionPoint.x * tall) + Math.abs(directionPoint.y * wide));
+		int height = (int)(Math.abs(directionPoint.y * tall) + Math.abs(directionPoint.x * wide));
+		attackPosition.x -= width / 2;
+		attackPosition.y -= height / 2;
+		
+		new Attack(this, attackPosition,width,height);
 	}
 
 	private void respawn() {
@@ -91,13 +109,13 @@ public class Player extends Fighter {
 		if(getCurrentAnimationSet() != damage) {
 			super.takeDamage(amount);
 			damage.get(direction).play();
-			PlayState.audio.play("player_hurt.wav");
+			Game.audio.play("player_hurt.wav");
 		}
 	}
 	
 	@Override
 	void die() {
 		super.die();
-		PlayState.audio.play("player_die.wav");
+		Game.audio.play("player_die.wav");
 	}
 }

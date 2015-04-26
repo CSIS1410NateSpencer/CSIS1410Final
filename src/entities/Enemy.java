@@ -6,10 +6,11 @@ import graphics.AnimationSet;
 
 import java.util.Random;
 
-import state.PlayState;
-
 public class Enemy extends Fighter {
 	
+	private static final int RIGHT_OFFSET = 35;
+	private static final int DOWN_OFFSET = 20;
+
 	public static int enemies = 0;
 	
 	double speed = .15;
@@ -18,24 +19,25 @@ public class Enemy extends Fighter {
 	
 	public Enemy(){
 		setDirection(Direction.Left);
-		//setPosition(500-2100,2400-3000);
 		setPosition();
 		initializeHealth(5);
-		walks = AnimationSet.loadAnimations("walk_zombie", 11);
-		damage = AnimationSet.loadAnimations("damaged", 4);
-		die = AnimationSet.loadAnimations("die_enemy", 11);
+		walks = AnimationSet.loadAnimations("enemy/walk_zombie", 11);
+		damage = AnimationSet.loadAnimations("enemy/damaged", 4);
+		die = AnimationSet.loadAnimations("enemy/die_enemy", 11);
 		setCurrentAnimationSet(walks);
 		sprite = getCurrentAnimationSet().get(getDirection()).currentSprite();
-		collider.width = sprite.getWidth();
-		collider.height = sprite.getHeight();
-		 attack = new Attack(this,position, sprite.getWidth(), sprite.getHeight());
+		collider.width = sprite.getWidth() - 30;
+		collider.height = sprite.getHeight() - 20;
+		
+		 attack = new Attack(this,position, collider.width,collider.height);
 		 attack.temporary = false;
-		 
+		 collider.offset.y = DOWN_OFFSET;
+		 attack.collider.offset.y = DOWN_OFFSET;
 		 enemies++;
 	}
 	public void setPosition(){
-		position.x = rand.nextInt(1000) + 1300;
-		position.y = rand.nextInt(1000) + 1700;
+		position.x = rand.nextInt(700) + 1600;
+		position.y = rand.nextInt(2200) + 800;
 	}
 	public void setPosition(double x,double y){
 		position.x = x;
@@ -47,10 +49,16 @@ public class Enemy extends Fighter {
 		velocity = direction.getPoint().multiply(speed);
 		moveAdjustingForTileCollision();
 		if(rand.nextInt(1000) == 999)
-			if(getDirection() == Direction.Right)
+			if(getDirection() == Direction.Right) {
 				setDirection(Direction.Left);
-			else
+				collider.offset.x = 0;
+				attack.collider.offset.x = 0;
+			}
+			else {
 				setDirection(Direction.Right);
+				collider.offset.x = RIGHT_OFFSET;
+				attack.collider.offset.x = RIGHT_OFFSET;
+			}
 	}
 
 	@Override
@@ -85,6 +93,6 @@ public class Enemy extends Fighter {
 	@Override
 	void takeDamage(int amount) {
 		super.takeDamage(amount);
-		PlayState.audio.play("enemy_hurt.wav");
+		Game.audio.play("enemy_hurt.wav");
 	}
 }

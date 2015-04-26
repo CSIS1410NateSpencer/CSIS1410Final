@@ -9,7 +9,7 @@ public class CreditsState extends State{
 
 	double y = 900;
 	String[] credits = {
-			"                                                                                                                                                                               Credits                         ",
+			"                                                                                                                                                                          Credits                         ",
 			"Spriter: Nate Ivy",
 			"Coder: Nate Ivy",
 			"Coder: Spencer Isaacson"

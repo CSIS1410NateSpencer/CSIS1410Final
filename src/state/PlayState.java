@@ -8,7 +8,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import maths.Maths;
 import maths.Point;
-import audio.AudioPlayer;
 import entities.Enemy;
 import entities.Entity;
 import entities.Player;
@@ -24,7 +23,6 @@ public class PlayState extends State {
 	public static List<Entity> entities = new CopyOnWriteArrayList<>();
 	public static Player player;
 	public static Point cameraPosition = new Point(0,0);
-	public static AudioPlayer audio = new AudioPlayer();
 	public HUD hud = new HUD();
 	
 	public PlayState(Game game) {
@@ -35,8 +33,8 @@ public class PlayState extends State {
 
 	@Override
 	public void update() {
-		if(!audio.isPlaying())
-			audio.play("bgm.wav");
+		if(!Game.audio.isPlaying())
+			Game.audio.play("bgm.wav");
 		for (Entity entity : entities) {
 			entity.update();
 		}
@@ -59,13 +57,16 @@ public class PlayState extends State {
 
 	@Override
 	public void render(Graphics g) {
+		//draw the map
 		tileMap.draw(g);
-		hud.render(g);
+		
 
 		// draw objects in the level;
 		for (Entity entity : entities) {
 			entity.draw(g);
 		}
+		//draw the heads-up-display
+		hud.render(g);
 	}
 	
 	private void setupMap() {
@@ -73,7 +74,7 @@ public class PlayState extends State {
 		tileMap.loadTiles("src/images/dungeon.png");
 	}
 	private void setupEntities() {
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 10; i++) {
 			new Enemy();
 		}
 		player = new Player();

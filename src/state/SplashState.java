@@ -3,6 +3,7 @@ package state;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -30,11 +31,20 @@ public class SplashState extends State {
 
 	@Override
 	public void update() {
-		opacity = Maths.interpolate(1, 0, clock.getElapsedAsSeconds() / 3 - 1);
+		if(!Game.audio.isPlaying()) {
+			Game.audio.play("splash_music.wav");
+			clock.reset();
+		}
+		opacity = Maths.interpolate(1, 0, clock.getElapsedAsSeconds() / 3);
 		opacity = Maths.clamp(opacity, 0, 1);
 		clock.tick();
-		if(clock.getElapsedAsSeconds() > 10)
+		if(clock.getElapsedAsSeconds() > 7.5)
 			game.state = game.menuState;
+		
+		if(Game.input.isPressed(KeyEvent.VK_SPACE)){
+			game.state = game.menuState;
+			Game.audio.stopAll();
+		}
 	}
 
 	@Override

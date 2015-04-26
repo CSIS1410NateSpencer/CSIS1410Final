@@ -52,7 +52,7 @@ public abstract class Fighter extends Entity {
 				&& other instanceof Attack 
 				&& ((Attack)other).sender.getClass() != this.getClass() 
 				&& getCurrentAnimationSet() != damage){
-			Point difference = other.collider.getCenter().subtract(collider.getCenter());
+			Point difference = ((Attack)other).sender.collider.getCenter().subtract(collider.getCenter());
 			position = position.subtract(difference.normalized().multiply(10));
 			takeDamage(1);
 		}

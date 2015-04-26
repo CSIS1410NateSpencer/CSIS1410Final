@@ -40,20 +40,25 @@ public class Game extends Canvas implements Runnable{
 	public PlayState playState = new PlayState(this);
 	public CreditsState creditsState = new CreditsState(this);
 	public State state = splashState;
+	public static AudioPlayer audio = new AudioPlayer();
+	private static Game game;
 	
 	public static void main(String[] args) {
-		Game game = new Game();
-		game.run();
-		
+		Game.getInstance().run();
 	}
 	
-	public Game(){
+	public static Game getInstance() {
+		if(game == null)
+			game = new Game();
+		return game;
+	}
+	
+	private Game(){
 		setupInput();
 		setupWindow();
 		
 		frame.setVisible(true);
 	}
-	
 	private void setupInput() {
 		addKeyListener(input);
 		addMouseListener(menuState);
