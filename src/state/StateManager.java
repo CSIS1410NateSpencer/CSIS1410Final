@@ -22,6 +22,8 @@ public class StateManager {
 		if(i == null)
 			System.out.println("Must call \"begin\" before using \"next\"");
 		else if(i.hasNext()) {
+			if(current != null)
+				current.end();
 			current = i.next();
 			current.begin();
 		}
@@ -31,11 +33,5 @@ public class StateManager {
 	
 	public State getCurrent(){
 		return current;
-	}
-
-
-	public void setCurrent(State state) {
-		current = state;
-		current.begin();
 	}
 }

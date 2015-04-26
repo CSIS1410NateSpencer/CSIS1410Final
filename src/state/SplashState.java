@@ -57,4 +57,8 @@ public class SplashState extends State {
 		g.fillRect(0, 0, game.getWidth(), game.getHeight());
 	}
 
+	@Override
+	public void end() {
+	}
+
 }

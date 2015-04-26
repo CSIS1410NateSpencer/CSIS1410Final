@@ -1,39 +1,39 @@
 package maths;
 
-public class Point {
+public class Vector2 {
 	public double x;
 	public double y;
 	
-	public Point(){
+	public Vector2(){
 		this(0.0,0.0);
 	}
-	public Point(double x, double y){
+	public Vector2(double x, double y){
 		this.x = x; this.y = y;
 	}
 	
-	public static Point zero(){
-		return new Point(0.0,0.0);
+	public static Vector2 zero(){
+		return new Vector2(0.0,0.0);
 	}
-	public Point multiply(double speed) {
-		return new Point(x * speed, y * speed);
+	public Vector2 multiply(double speed) {
+		return new Vector2(x * speed, y * speed);
 	}
-	public Point add(Point v) {
-		return new Point(x + v.x, y + v.y);
+	public Vector2 add(Vector2 v) {
+		return new Vector2(x + v.x, y + v.y);
 	}
 
-	public Point subtract(Point v) {
-		return new Point(x - v.x, y - v.y);
+	public Vector2 subtract(Vector2 v) {
+		return new Vector2(x - v.x, y - v.y);
 	}
 	
-	public Point normalized() {
-		return new Point(x / magnitude(),y / magnitude());
+	public Vector2 normalized() {
+		return new Vector2(x / magnitude(),y / magnitude());
 	}
 	
 	public double magnitude(){
 		return Math.sqrt(x * x + y * y);
 	}
 	
-	public static double distance(Point a, Point b){
+	public static double distance(Vector2 a, Vector2 b){
 		return a.subtract(b).magnitude();
 	}
 	@Override
@@ -53,9 +53,9 @@ public class Point {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Point))
+		if (!(obj instanceof Vector2))
 			return false;
-		Point other = (Point) obj;
+		Vector2 other = (Vector2) obj;
 		if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x))
 			return false;
 		if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y))

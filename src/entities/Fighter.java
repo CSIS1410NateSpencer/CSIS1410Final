@@ -1,6 +1,6 @@
 package entities;
 
-import maths.Point;
+import maths.Vector2;
 import finalProject.Direction;
 import state.PlayState;
 import graphics.AnimationSet;
@@ -9,7 +9,7 @@ import graphics.AnimationSet;
 public abstract class Fighter extends Entity {
 	
 	AnimationSet walks;
-	AnimationSet attacks;
+	private AnimationSet attacks;
 	AnimationSet damage;
 	AnimationSet die;
 	
@@ -18,7 +18,7 @@ public abstract class Fighter extends Entity {
 	private int health;
 	protected int starterHealth;
 	protected Direction direction = Direction.Right;
-	protected Point velocity = Point.zero();
+	protected Vector2 velocity = Vector2.zero();
 	private boolean topLeft;
 	private boolean topRight;
 	private boolean bottomLeft;
@@ -52,7 +52,7 @@ public abstract class Fighter extends Entity {
 				&& other instanceof Attack 
 				&& ((Attack)other).sender.getClass() != this.getClass() 
 				&& getCurrentAnimationSet() != damage){
-			Point difference = ((Attack)other).sender.collider.getCenter().subtract(collider.getCenter());
+			Vector2 difference = ((Attack)other).sender.getCollider().getCenter().subtract(getCollider().getCenter());
 			position = position.subtract(difference.normalized().multiply(10));
 			takeDamage(1);
 		}
@@ -76,7 +76,7 @@ public abstract class Fighter extends Entity {
 		return currentAnimationSet;
 	}
 
-	protected void setCurrentAnimationSet(AnimationSet currentAnimationSet) {
+	public void setCurrentAnimationSet(AnimationSet currentAnimationSet) {
 		this.currentAnimationSet = currentAnimationSet;
 	}
 
@@ -89,10 +89,10 @@ public abstract class Fighter extends Entity {
 	}
 	
 	private void calculateCorners(double x, double y) {
-		int leftTile = PlayState.tileMap.getColTile((int) (x - collider.width / 2));
-		int rightTile = PlayState.tileMap.getColTile((int) (x + collider.width / 2) - 1);
-		int topTile = PlayState.tileMap.getRowTile((int) (y - collider.height / 2));
-		int bottomTile = PlayState.tileMap.getRowTile((int) (y + collider.height / 2) - 1);
+		int leftTile = PlayState.tileMap.getColTile((int) (x - getCollider().getWidth() / 2));
+		int rightTile = PlayState.tileMap.getColTile((int) (x + getCollider().getWidth() / 2) - 1);
+		int topTile = PlayState.tileMap.getRowTile((int) (y - getCollider().getHeight() / 2));
+		int bottomTile = PlayState.tileMap.getRowTile((int) (y + getCollider().getHeight() / 2) - 1);
 		topLeft = PlayState.tileMap.isBlocked(topTile, leftTile);
 		topRight = PlayState.tileMap.isBlocked(topTile, rightTile);
 		bottomLeft = PlayState.tileMap.isBlocked(bottomTile, leftTile);
@@ -113,7 +113,7 @@ public abstract class Fighter extends Entity {
 		if (velocity.y < 0) {
 			if (topLeft || topRight) {
 				velocity.y = 0;
-				tempy = currRow * PlayState.tileMap.getTileSize() + collider.height / 2;
+				tempy = currRow * PlayState.tileMap.getTileSize() + getCollider().getHeight() / 2;
 			} else {
 				tempy += velocity.y;
 			}
@@ -121,7 +121,7 @@ public abstract class Fighter extends Entity {
 		if (velocity.y > 0) {
 			if (bottomLeft || bottomRight) {
 				velocity.y = 0;
-				tempy = (currRow + 1) * PlayState.tileMap.getTileSize() - collider.height / 2;
+				tempy = (currRow + 1) * PlayState.tileMap.getTileSize() - getCollider().getHeight() / 2;
 			} else {
 				tempy += velocity.y;
 			}
@@ -131,7 +131,7 @@ public abstract class Fighter extends Entity {
 		if (velocity.x < 0) {
 			if (topLeft || bottomLeft) {
 				velocity.x = 0;
-				tempx = currCol * PlayState.tileMap.getTileSize() + collider.width / 2;
+				tempx = currCol * PlayState.tileMap.getTileSize() + getCollider().getWidth() / 2;
 			} else {
 				tempx += velocity.x;
 			}
@@ -139,7 +139,7 @@ public abstract class Fighter extends Entity {
 		if (velocity.x > 0) {
 			if (topRight || bottomRight) {
 				velocity.x = 0;
-				tempx = (currCol + 1) * PlayState.tileMap.getTileSize() - collider.width / 2;
+				tempx = (currCol + 1) * PlayState.tileMap.getTileSize() - getCollider().getWidth() / 2;
 			} else {
 				tempx += velocity.x;
 			}
@@ -147,6 +147,14 @@ public abstract class Fighter extends Entity {
 
 		position.x = tempx;
 		position.y = tempy;
+	}
+
+	public AnimationSet getAttacks() {
+		return attacks;
+	}
+
+	public void setAttacks(AnimationSet attacks) {
+		this.attacks = attacks;
 	}
 	
 	

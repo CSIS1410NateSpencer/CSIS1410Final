@@ -26,13 +26,13 @@ public class Enemy extends Fighter {
 		die = AnimationSet.loadAnimations("enemy/die_enemy", 11);
 		setCurrentAnimationSet(walks);
 		sprite = getCurrentAnimationSet().get(getDirection()).currentSprite();
-		collider.width = sprite.getWidth() - 30;
-		collider.height = sprite.getHeight() - 20;
+		getCollider().setWidth(sprite.getWidth() - 30);
+		getCollider().setHeight(sprite.getHeight() - 20);
 		
-		 attack = new Attack(this,position, collider.width,collider.height);
+		 attack = new Attack(this,position, getCollider().getWidth(),getCollider().getHeight());
 		 attack.temporary = false;
-		 collider.offset.y = DOWN_OFFSET;
-		 attack.collider.offset.y = DOWN_OFFSET;
+		 getCollider().offset.y = DOWN_OFFSET;
+		 attack.getCollider().offset.y = DOWN_OFFSET;
 		 enemies++;
 	}
 	public void setPosition(){
@@ -51,13 +51,13 @@ public class Enemy extends Fighter {
 		if(rand.nextInt(1000) == 999)
 			if(getDirection() == Direction.Right) {
 				setDirection(Direction.Left);
-				collider.offset.x = 0;
-				attack.collider.offset.x = 0;
+				getCollider().offset.x = 0;
+				attack.getCollider().offset.x = 0;
 			}
 			else {
 				setDirection(Direction.Right);
-				collider.offset.x = RIGHT_OFFSET;
-				attack.collider.offset.x = RIGHT_OFFSET;
+				getCollider().offset.x = RIGHT_OFFSET;
+				attack.getCollider().offset.x = RIGHT_OFFSET;
 			}
 	}
 
@@ -85,6 +85,7 @@ public class Enemy extends Fighter {
 	void die() {
 		super.die();
 		attack.destroy();
+		Game.score += 1000;
 		enemies--;
 		
 		

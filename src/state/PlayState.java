@@ -4,10 +4,12 @@ import java.awt.Graphics;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Timer;
 
 import maths.Maths;
-import maths.Point;
+import maths.Vector2;
 import entities.Enemy;
 import entities.Entity;
 import entities.Player;
@@ -22,10 +24,10 @@ public class PlayState extends State {
 	public static TileMap tileMap;
 	public static List<Entity> entities = new CopyOnWriteArrayList<>();
 	public static Player player;
-	public static Point cameraPosition = Point.zero();
+	public static Vector2 cameraPosition = Vector2.zero();
 	public HUD hud = new HUD();
 	private Comparator<Entity> compareByDistanceToPlayer = new CompareByDistanceToTarget(player);
-	
+	TimerTask task;
 	public PlayState(Game game) {
 		super(game);
 		setupMap();
@@ -34,7 +36,8 @@ public class PlayState extends State {
 	@Override
 	public void begin() {
 		setupEntities();
-		cameraPosition = Point.zero();
+		cameraPosition = Vector2.zero();
+		scoreBoard();
 	}
 	
 	@Override
@@ -101,5 +104,28 @@ public class PlayState extends State {
 	}
 	public static void add(Entity e) {
 		entities.add(e);
+	}
+	
+	Timer timer = new Timer();
+	private void scoreBoard() {
+		Game.score = 20000;
+		if(task != null)
+		task.cancel();
+
+		task = new TimerTask() {
+				public void run() {
+					// will only work if there are enemies left
+					if (Enemy.enemies != 0)
+						Game.score -= 100;
+				}
+			};
+		// timer added in to reduce points every 1 second
+		timer.schedule(task, 1000, 1000);
+	}
+
+	@Override
+	public void end() {
+		task.cancel();
+		System.out.println("It should have stopped here");
 	}
 }

@@ -12,6 +12,7 @@ public abstract class State {
 	}
 	
 	public abstract void begin();
+	public abstract void end();
 	public abstract void update();
 	public abstract void render(Graphics g);
 }

@@ -78,16 +78,18 @@ public class GameOverState extends State {
 		g.drawImage(img1, 0, 0, null);
 
 		g.setFont(new Font("arial", Font.BOLD, 60));
-		int i = 0;
-		for (Integer el : scores) {
-			if (el == Game.score) {
+		for (int i = 0; i < 5 && i < scores.size(); i++) {
+			if (scores.get(i) == Game.score) {
 				g.setColor(Color.YELLOW);
 			}
-			if (el != Game.score) {
+			if (scores.get(i) != Game.score) {
 				g.setColor(Color.WHITE);
 			}
-			i++;
-			g.drawString(Integer.toString(el), 404, i * 70 + 280);
+			g.drawString(Integer.toString(scores.get(i)), 404, i * 70 + 350);
 		}
+	}
+
+	@Override
+	public void end() {
 	}
 }

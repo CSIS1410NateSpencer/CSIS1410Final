@@ -68,4 +68,8 @@ public class CreditsState extends State{
 		if(yOffset <= minYOffset)
 			g.drawString("Press the spacebar to restart", 440, 430);
 	}
+
+	@Override
+	public void end() {
+	}
 }

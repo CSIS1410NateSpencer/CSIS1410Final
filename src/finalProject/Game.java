@@ -19,7 +19,7 @@ import state.SplashState;
 import state.State;
 import state.StateManager;
 import maths.Maths;
-import maths.Point;
+import maths.Vector2;
 import audio.AudioPlayer;
 import entities.Enemy;
 import entities.Entity;
@@ -44,7 +44,7 @@ public class Game extends Canvas implements Runnable{
 	public GameOverState gameOverState = new GameOverState(this);
 	public static AudioPlayer audio = new AudioPlayer();
 	private static Game game;
-	public static int score = 201000;
+	public static int score = 20000;
 	
 	public static void main(String[] args) {
 		Game.getInstance().run();
@@ -91,8 +91,8 @@ public class Game extends Canvas implements Runnable{
 		stateManager.add(splashState);
 		stateManager.add(menuState);
 		stateManager.add(playState);
-		stateManager.add(creditsState);
 		stateManager.add(gameOverState);
+		stateManager.add(creditsState);
 	}
 	@Override
 	public void run() {

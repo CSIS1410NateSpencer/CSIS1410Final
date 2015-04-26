@@ -1,6 +1,6 @@
 package entities;
 
-import maths.Point;
+import maths.Vector2;
 
 
 public class Attack extends Entity{
@@ -9,11 +9,11 @@ public class Attack extends Entity{
 	double timeRemaining = 25;
 	boolean temporary = true;
 	
-	public Attack(Entity sender, Point point, int width, int height){
-		collider.width = width;
-		collider.height = height;
+	public Attack(Entity sender, Vector2 vector2, int width, int height){
+		getCollider().setWidth(width);
+		getCollider().setHeight(height);
 		this.sender = sender;
-		position = point;
+		position = vector2;
 		
 	}
 	@Override

@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import maths.Point;
+import maths.Vector2;
 
 public class Input extends KeyAdapter{
 	public static List<Integer> pressedKeys = new ArrayList<>();
@@ -39,7 +39,7 @@ public class Input extends KeyAdapter{
 
 	}
 	
-	public Point getPoint() {
+	public Vector2 getPoint() {
 		Map<Integer, Double> directions = new HashMap<>();
 		
 		int upIndex = pressedKeys.indexOf(KeyEvent.VK_UP);
@@ -68,7 +68,7 @@ public class Input extends KeyAdapter{
 		else
 			y = directions.get(latestVertical);
 		
-		return new Point(x, y);
+		return new Vector2(x, y);
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {

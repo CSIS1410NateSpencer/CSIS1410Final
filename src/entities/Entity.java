@@ -6,20 +6,20 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import state.PlayState;
-import maths.Point;
+import maths.Vector2;
 
 public abstract class Entity implements Comparable<Entity>{
-	public Point position = new Point();
+	public Vector2 position = new Vector2();
 	protected BufferedImage sprite = null;	
 	
-	protected Collider collider;
+	private Collider collider;
 	
 	public Entity() {
-		collider = new Collider(this, 0, 0, 0, 0);
+		setCollider(new Collider(this, 0, 0, 0, 0));
 		PlayState.add(this);
 	}
 	
-	public Entity(Point position, int width, int height) {
+	public Entity(Vector2 position, int width, int height) {
 		
 	}
 	public abstract void update();
@@ -34,7 +34,7 @@ public abstract class Entity implements Comparable<Entity>{
 	}
 
 	public static void checkCollision(Entity a, Entity b) {
-		if(Collider.intersects(a.collider,b.collider)) {
+		if(Collider.intersects(a.getCollider(),b.getCollider())) {
 			a.onCollide(b);
 			b.onCollide(a);
 		}
@@ -63,6 +63,14 @@ public abstract class Entity implements Comparable<Entity>{
 	}
 	void destroy() {
 		PlayState.remove(this);
+	}
+
+	public Collider getCollider() {
+		return collider;
+	}
+
+	protected void setCollider(Collider collider) {
+		this.collider = collider;
 	}
 	
 	

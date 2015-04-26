@@ -2,7 +2,7 @@ package finalProject;
 
 import java.util.Comparator;
 
-import maths.Point;
+import maths.Vector2;
 import entities.Entity;
 
 public final class CompareByDistanceToTarget implements Comparator<Entity> {
@@ -13,9 +13,9 @@ public final class CompareByDistanceToTarget implements Comparator<Entity> {
 	}
 	@Override
 	public int compare(Entity a, Entity b) {
-		if(Point.distance(a.position, target.position) > Point.distance(b.position, target.position))
+		if(Vector2.distance(a.position, target.position) > Vector2.distance(b.position, target.position))
 			return 1;
-		else if(Point.distance(a.position, target.position) < Point.distance(b.position, target.position))
+		else if(Vector2.distance(a.position, target.position) < Vector2.distance(b.position, target.position))
 			return -1;
 		else return 0;
 	}
