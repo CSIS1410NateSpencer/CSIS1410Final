@@ -43,9 +43,9 @@ public class SplashState extends State {
 		opacity = Maths.clamp(opacity, 0, 1);
 		clock.tick();
 		if(clock.getElapsedAsSeconds() > 7.5)
-			Game.manager.next();
+			Game.stateManager.next();
 		else if(clock.getElapsedAsSeconds() > 1.0 && Game.input.isPressed(KeyEvent.VK_SPACE)){
-			Game.manager.next();
+			Game.stateManager.next();
 			Game.audio.stopAll();
 		}
 	}

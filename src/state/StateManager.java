@@ -32,4 +32,10 @@ public class StateManager {
 	public State getCurrent(){
 		return current;
 	}
+
+
+	public void setCurrent(State state) {
+		current = state;
+		current.begin();
+	}
 }

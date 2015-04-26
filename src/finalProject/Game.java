@@ -12,6 +12,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.JFrame;
 
 import state.CreditsState;
+import state.GameOverState;
 import state.MenuState;
 import state.PlayState;
 import state.SplashState;
@@ -35,13 +36,15 @@ public class Game extends Canvas implements Runnable{
 	Graphics g;
 	public static Input input = new Input();
 	
-	public static StateManager manager = new StateManager();
+	public static StateManager stateManager = new StateManager();
 	public SplashState splashState = new SplashState(this);
 	public MenuState menuState = new MenuState(this);
 	public PlayState playState = new PlayState(this);
 	public CreditsState creditsState = new CreditsState(this);
+	public GameOverState gameOverState = new GameOverState(this);
 	public static AudioPlayer audio = new AudioPlayer();
 	private static Game game;
+	public static int score = 201000;
 	
 	public static void main(String[] args) {
 		Game.getInstance().run();
@@ -85,10 +88,11 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	private void setupStates() {
-		manager.add(splashState);
-		manager.add(menuState);
-		manager.add(playState);
-		manager.add(creditsState);
+		stateManager.add(splashState);
+		stateManager.add(menuState);
+		stateManager.add(playState);
+		stateManager.add(creditsState);
+		stateManager.add(gameOverState);
 	}
 	@Override
 	public void run() {
@@ -96,7 +100,7 @@ public class Game extends Canvas implements Runnable{
 		double desiredFPS = 60;
 		double delay = Clock.NANOS_PER_SECOND / desiredFPS;
 		
-		manager.begin();
+		stateManager.begin();
 		while (true) {
 			clock.tick();
 			if (clock.getElapsed() >= delay) {
@@ -108,7 +112,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	private void update() {
-		manager.getCurrent().update();
+		stateManager.getCurrent().update();
 	}
 
 	private void render() {
@@ -124,7 +128,7 @@ public class Game extends Canvas implements Runnable{
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
-		manager.getCurrent().render(g);
+		stateManager.getCurrent().render(g);
 		// display the final product on the screen
 		bs.show();
 

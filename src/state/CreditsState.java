@@ -54,7 +54,7 @@ public class CreditsState extends State{
 		if(yOffset > minYOffset)
 			yOffset--;
 		else if (Game.input.isPressed(KeyEvent.VK_SPACE)){
-			Game.manager.next();
+			Game.stateManager.next();
 		}
 	}
 

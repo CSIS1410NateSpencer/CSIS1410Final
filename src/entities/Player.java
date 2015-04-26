@@ -11,16 +11,15 @@ import maths.Point;
 
 public class Player extends Fighter {
 	
-	double speed = 2;//in pixels per update
+	private double speed = 2;//in pixels per update
 	
-	AnimationSet idles;
+	private AnimationSet idles;
 	private Animation praise = new Animation("src/images/player/praise_the_sun.png",10);
 	
 	
 	Point startingPoint = new Point(2175,360);
 	public Player(){
 		initializeHealth(16);
-		
 		direction = Direction.Down;
 		walks = AnimationSet.loadAnimations("player/walking",8);
 		idles = AnimationSet.loadAnimations("player/idle",8);
@@ -63,8 +62,10 @@ public class Player extends Fighter {
 		if(getCurrentAnimationSet().get(direction).isFinished() == true) {
 			if(getCurrentAnimationSet() == attacks)
 				createAttackEntity(75,95,85);
-			if(getCurrentAnimationSet() == die)
-				respawn();
+			if(getCurrentAnimationSet() == die) {
+				Game.getInstance();
+				Game.stateManager.setCurrent(Game.getInstance().gameOverState);
+			}
 			setCurrentAnimationSet(idles);
 		}
 		
@@ -78,7 +79,7 @@ public class Player extends Fighter {
 			sprite = praise.currentSprite();
 			if(praise.isFinished()) {
 				System.out.println("YIPPEE!");
-				Game.manager.next();
+				Game.stateManager.next();
 			}
 		}
 		
@@ -118,5 +119,6 @@ public class Player extends Fighter {
 	void die() {
 		super.die();
 		Game.audio.play("player_die.wav");
+		
 	}
 }

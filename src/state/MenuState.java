@@ -59,7 +59,7 @@ public class MenuState extends State implements MouseListener, MouseMotionListen
 		if(exit)
 			System.exit(0);
 		if(next)
-			Game.manager.next();
+			Game.stateManager.next();
 	}
 	
 	@Override
