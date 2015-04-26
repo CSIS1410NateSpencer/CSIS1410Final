@@ -13,12 +13,13 @@ public class CreditsState extends State{
 	int minYOffset = -450;
 	String[] credits = {
 			"                                                                                                                                                              Credits                         ",
-			"Spriter: Nate Ivy",
-			"Coder: Nate Ivy",
-			"Coder: Spencer Isaacson",
 			"",
-			"",
-			"",
+			"Main character sprites: Nate Ivy",
+			"Programmer: Nate Ivy",
+			"Programmer: Spencer Isaacson",
+			"Sound Effects Recorded By : Spencer Isaacson",
+			"Background music downloaded from sounddogs.com",
+			"Additional sprites and tile sets downloaded from spriters-resource.com",
 			"",
 			"",
 			"",
