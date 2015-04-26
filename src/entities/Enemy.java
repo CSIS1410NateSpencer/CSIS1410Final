@@ -6,6 +6,8 @@ import graphics.AnimationSet;
 
 import java.util.Random;
 
+import state.PlayState;
+
 public class Enemy extends Fighter {
 	
 	public static int enemies = 0;
@@ -83,6 +85,6 @@ public class Enemy extends Fighter {
 	@Override
 	void takeDamage(int amount) {
 		super.takeDamage(amount);
-		//Game.audio.play("src/audio/applause.wav");
+		PlayState.audio.play("enemy_hurt.wav");
 	}
 }

@@ -17,4 +17,8 @@ public class Clock {
 	public double getElapsed() {
 		return elapsed;
 	}
+	
+	public double getElapsedAsSeconds() {
+		return elapsed / NANOS_PER_SECOND;
+	}
 }

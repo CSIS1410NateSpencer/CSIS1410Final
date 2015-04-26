@@ -4,6 +4,7 @@ import finalProject.Direction;
 import finalProject.Game;
 import graphics.Animation;
 import graphics.AnimationSet;
+import state.PlayState;
 
 import java.awt.event.KeyEvent;
 
@@ -11,7 +12,7 @@ import maths.Point;
 
 public class Player extends Fighter {
 	
-	double speed = 12;//in pixels per update
+	double speed = 5;//in pixels per update
 	
 	AnimationSet idles;
 	private Animation praise = new Animation("src/images/praise_the_sun.png",10);
@@ -90,12 +91,13 @@ public class Player extends Fighter {
 		if(getCurrentAnimationSet() != damage) {
 			super.takeDamage(amount);
 			damage.get(direction).play();
+			PlayState.audio.play("player_hurt.wav");
 		}
 	}
 	
 	@Override
 	void die() {
 		super.die();
-		
+		PlayState.audio.play("player_die.wav");
 	}
 }

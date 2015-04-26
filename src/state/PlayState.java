@@ -2,6 +2,7 @@ package state;
 
 import java.awt.Graphics;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -11,17 +12,18 @@ import audio.AudioPlayer;
 import entities.Enemy;
 import entities.Entity;
 import entities.Player;
+import finalProject.CompareByDistanceToTarget;
 import finalProject.Game;
 import finalProject.TileMap;
 import graphics.HUD;
 
 public class PlayState extends State {
 
+	
 	public static TileMap tileMap;
 	public static List<Entity> entities = new CopyOnWriteArrayList<>();
 	public static Player player;
 	public static Point cameraPosition = new Point(0,0);
-	
 	public static AudioPlayer audio = new AudioPlayer();
 	public HUD hud = new HUD();
 	
@@ -33,10 +35,14 @@ public class PlayState extends State {
 
 	@Override
 	public void update() {
-		// update entities
+		if(!audio.isPlaying())
+			audio.play("bgm.wav");
 		for (Entity entity : entities) {
 			entity.update();
 		}
+		
+		entities.sort(new CompareByDistanceToTarget(player));
+		
 		// check for intersection between entities
 		for (int x = 0; x < entities.size(); x++) {
 			for (int y = x; y < entities.size(); y++) {

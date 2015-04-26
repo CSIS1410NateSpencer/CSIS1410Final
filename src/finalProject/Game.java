@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import state.CreditsState;
 import state.MenuState;
 import state.PlayState;
+import state.SplashState;
 import state.State;
 import maths.Maths;
 import maths.Point;
@@ -33,11 +34,12 @@ public class Game extends Canvas implements Runnable{
 	Graphics g;
 	public static Input input = new Input();
 	
-	
+	//StateManager manager = new StateManager();
+	public SplashState splashState = new SplashState(this);
 	public MenuState menuState = new MenuState(this);
 	public PlayState playState = new PlayState(this);
 	public CreditsState creditsState = new CreditsState(this);
-	public State state = playState;
+	public State state = splashState;
 	
 	public static void main(String[] args) {
 		Game game = new Game();
@@ -46,8 +48,9 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public Game(){
-		setupWindow();
 		setupInput();
+		setupWindow();
+		
 		frame.setVisible(true);
 	}
 	

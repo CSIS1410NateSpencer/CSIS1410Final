@@ -25,7 +25,7 @@ public class AudioPlayer implements LineListener{
 	public void play(String name) {
 		try {
 			BufferedInputStream bufferedStream = new BufferedInputStream(
-					getClass().getResourceAsStream("/sounds/" + name));
+					getClass().getResourceAsStream("/sfx/" + name));
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(bufferedStream);
 			Clip clip = AudioSystem.getClip();
 			clip.open(inputStream);
@@ -35,11 +35,11 @@ public class AudioPlayer implements LineListener{
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (UnsupportedAudioFileException e) {
+			e.printStackTrace();
 		} catch (LineUnavailableException e) {
-		}
-		 catch (NullPointerException e) {
-			}
-		catch(Exception e) {
+			e.printStackTrace();
+		} catch (NullPointerException e) {
+			 e.printStackTrace();
 		}
 	}
 	
