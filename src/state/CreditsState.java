@@ -11,29 +11,40 @@ public class CreditsState extends State{
 
 	int starterYOffset = 900;
 	int yOffset = starterYOffset;
-	int minYOffset = -950;
+	int minYOffset = -1400;
 	String[] credits = {
 			"",
+			"     --------------------------------------------------------------------------------------",
 			"                                                    Credits",
-			"",
+			"     --------------------------------------------------------------------------------------",
 			"",			
 			"                                   Programmer : Nate Ivy",
 			"                                   Programmer : Spencer Isaacson",			
 			"",
 			"",
+			"     --------------------------------------------------------------------------------------",
 			"                                                    AUDIO",
+			"     --------------------------------------------------------------------------------------",
 			"",
 			"        Sound Effects Recorded By : Spencer Isaacson",
 			"                        Background Music : sounddogs.com",
 			"",
-			"",	
 			"",
+			"     --------------------------------------------------------------------------------------",
 			"                                                GRAPHICS",
+			"     --------------------------------------------------------------------------------------",
 			"",
 			"                Main Character Sprites : Nate Ivy",
 			"        Additional Sprites and Tiles : spriters-resource.com",
 			"",
 			"",
+			"     --------------------------------------------------------------------------------------",
+			"                                          SPECIAL THANKS",
+			"     --------------------------------------------------------------------------------------",
+			"",
+			"                                                        Eitr",
+			"                                                  Dark Souls",
+			"                                                Video Games",
 			"",
 			"",
 			"",
@@ -54,6 +65,9 @@ public class CreditsState extends State{
 			"",
 			"",
 			"",
+			"",
+			"",
+			
 			"                                                    THE END",
 			
 			};
