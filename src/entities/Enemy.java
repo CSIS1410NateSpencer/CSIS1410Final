@@ -20,7 +20,7 @@ public class Enemy extends Fighter {
 	public Enemy(){
 		setDirection(Direction.Left);
 		setPosition();
-		initializeHealth(5);
+		initializeHealth(2);
 		walks = AnimationSet.loadAnimations("enemy/walk_zombie", 11);
 		damage = AnimationSet.loadAnimations("enemy/damaged", 4);
 		die = AnimationSet.loadAnimations("enemy/die_enemy", 11);

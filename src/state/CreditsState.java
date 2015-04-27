@@ -1,6 +1,7 @@
 package state;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
@@ -17,12 +18,12 @@ public class CreditsState extends State{
 			"Programmer: Nate Ivy",
 			"Programmer: Spencer Isaacson",
 			"Sound Effects Recorded By : Spencer Isaacson",
-			"Background music downloaded from sounddogs.com",
-			"Additional sprites and tile sets downloaded from spriters-resource.com",
 			"",
+			"Background music: ",
+			"downloaded from sounddogs.com",
 			"",
-			"",
-			"",
+			"Additional sprites and tile sets: ",
+			"downloaded from spriters-resource.com",
 			"",
 			"",
 			"",
@@ -61,11 +62,12 @@ public class CreditsState extends State{
 	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.WHITE);
+		g.setFont(new Font("arial", Font.BOLD, 30));
 		for (int i = 0; i < credits.length; i++) {
 			g.drawString(credits[i], 25, i * 32 + (int)yOffset);
 		}
 		
 		if(yOffset <= minYOffset)
-			g.drawString("Press the spacebar to restart", 440, 430);
+			g.drawString("Press the spacebar to restart", 240, 430);
 	}
 }
