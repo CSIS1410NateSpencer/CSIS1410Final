@@ -11,35 +11,51 @@ public class CreditsState extends State{
 
 	int starterYOffset = 900;
 	int yOffset = starterYOffset;
-	int minYOffset = -450;
+	int minYOffset = -950;
 	String[] credits = {
-			"                                                                                                                                                              Credits                         ",
-			"Main character sprites: Nate Ivy",
-			"Programmer: Nate Ivy",
-			"Programmer: Spencer Isaacson",
-			"Sound Effects Recorded By : Spencer Isaacson",
 			"",
-			"Background music: ",
-			"downloaded from sounddogs.com",
+			"                                                    Credits",
 			"",
-			"Additional sprites and tile sets: ",
-			"downloaded from spriters-resource.com",
+			"",			
+			"                                   Programmer : Nate Ivy",
+			"                                   Programmer : Spencer Isaacson",			
 			"",
 			"",
+			"                                                    AUDIO",
 			"",
+			"        Sound Effects Recorded By : Spencer Isaacson",
+			"                        Background Music : sounddogs.com",
 			"",
+			"",	
 			"",
+			"                                                GRAPHICS",
 			"",
-			"",
-			"",
-			"",
-			"",
+			"                Main Character Sprites : Nate Ivy",
+			"        Additional Sprites and Tiles : spriters-resource.com",
 			"",
 			"",
 			"",
 			"",
 			"",
-			"                                                                                                                                                            THE END",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"                                                    THE END",
+			
 			};
 	public CreditsState(Game game) {
 		super(game);
@@ -68,6 +84,7 @@ public class CreditsState extends State{
 		}
 		
 		if(yOffset <= minYOffset)
-			g.drawString("Press the spacebar to restart", 240, 430);
+			
+			g.drawString("Press the spacebar to restart", 301, 430);
 	}
 }
