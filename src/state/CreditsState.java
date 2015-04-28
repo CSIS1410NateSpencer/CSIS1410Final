@@ -11,7 +11,7 @@ public class CreditsState extends State{
 
 	int starterYOffset = 900;
 	int yOffset = starterYOffset;
-	int minYOffset = -450;
+	int minYOffset = -1400;
 	String[] credits = {
 			"",
 			"     --------------------------------------------------------------------------------------",

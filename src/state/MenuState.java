@@ -35,7 +35,7 @@ public class MenuState extends State implements MouseListener, MouseMotionListen
 	public void render(Graphics g) {
 		Image img1 = Toolkit.getDefaultToolkit().getImage("src/images/dungeon_menu.gif");
 		g.drawImage(img1, 0, 0, null);
-		g.setColor(Color.RED);
+		g.setColor(Color.DARK_GRAY);
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setStroke(new BasicStroke(10));
 		if(overNext)
