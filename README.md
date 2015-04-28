@@ -6,7 +6,7 @@ DUNGEON DANGER
 ----------
 
 
-####**<i class="icon-gamepad"></i>** This is a tile based 2D top down adventure game made in Java.  This was a first attempt at this style of game.** 
+####<i class="icon-gamepad"></i> This is a tile based 2D top down adventure game made in Java.  This was a first attempt at this style of game.
 
 
 ----------
@@ -68,8 +68,10 @@ DUNGEON DANGER
 -------------
 #### <i class="icon-picture"></i> Dungeon Danger
 ![enter image description here](https://lh3.googleusercontent.com/xsnWyS8Zz6D9pMn07uVlCDAZK12JZgfzmVoL_N1XB2M=s500 "dungeon_menu.gif")![Map](https://lh3.googleusercontent.com/-xQ2HoxyznsM/VT-mB4AHhrI/AAAAAAAAMyo/uZX9O5v3KDk/s500/dungeon_map.png "dungeon_map.png")
+----------
 #### <i class="icon-picture"></i> Field Slayer
 ![enter image description here](https://lh3.googleusercontent.com/--Yahl0pS4no/VT6nqfYvq7I/AAAAAAAAMw0/7VlseKxtxtE/s500/grassymenu.gif "grassymenu.gif")![enter image description here](https://lh3.googleusercontent.com/-l_uN7s7Tf-E/VT-nEH57TII/AAAAAAAAMy0/u9Bv2rP7qjY/s500/LVL1.png "LVL1.png")
+----------
 #### <i class="icon-picture"></i> Original Ideation for menu
 ![enter image description here](https://lh3.googleusercontent.com/-Uyou3iHsVnY/VT6nx-3633I/AAAAAAAAMxA/rcZzTjOaWzg/s500/START_MENU.gif "START_MENU.gif")
 
