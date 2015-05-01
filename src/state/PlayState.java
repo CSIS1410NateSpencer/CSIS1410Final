@@ -84,6 +84,7 @@ public class PlayState extends State {
 	}
 	private void setupEntities() {
 		entities.clear();
+		Enemy.enemies = 0;
 		for (int i = 0; i < 15; i++) {
 			new Enemy();
 		}
